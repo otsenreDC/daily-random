@@ -10,7 +10,7 @@ import android.provider.BaseColumns;
  */
 public class DailyRandomContract {
 
-    public static final String CONTENT_AUTHORITY = "io.bananlabs.dailyrandom";
+    public static final String CONTENT_AUTHORITY = "io.bananalabs.dailyrandom";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_CATEGORY = "category";
     public static final String PATH_ELEMENT = "element";
@@ -59,6 +59,14 @@ public class DailyRandomContract {
 
         public static Uri buildElementUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static Uri buildElementCategory(String category) {
+            return CONTENT_URI.buildUpon().appendPath(category).build();
+        }
+
+        public static String getCategoryFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
         }
     }
 }

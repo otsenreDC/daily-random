@@ -16,6 +16,8 @@ import io.bananalabs.dailyrandom.data.DailyRandomDbHelper;
  */
 public class TestDB extends AndroidTestCase {
 
+    static final String TEST_CATEGORY = "Fast Food";
+
     public void testCreateDb() throws Throwable {
         mContext.deleteDatabase(DailyRandomDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new DailyRandomDbHelper(mContext).getWritableDatabase();
@@ -27,7 +29,7 @@ public class TestDB extends AndroidTestCase {
         DailyRandomDbHelper dbHelper = new DailyRandomDbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues categoryValues = categoryEnrty();
+        ContentValues categoryValues = createCategoryValues();
 
         long categoryRowId;
         categoryRowId = db.insert(CategoryEntry.TABLE_NAME, null, categoryValues);
@@ -59,12 +61,12 @@ public class TestDB extends AndroidTestCase {
         DailyRandomDbHelper dbHelper = new DailyRandomDbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues categoryValues = categoryEnrty();
+        ContentValues categoryValues = createCategoryValues();
 
         long categoryRowId;
         categoryRowId = db.insert(CategoryEntry.TABLE_NAME, null, categoryValues);
 
-        ContentValues elementValues = elementEntry(categoryRowId);
+        ContentValues elementValues = createElementValues(categoryRowId);
 
         long elementRowId;
         elementRowId = db.insert(ElementEntry.TABLE_NAME, null, elementValues);
@@ -93,16 +95,16 @@ public class TestDB extends AndroidTestCase {
 
     }
 
-    private ContentValues categoryEnrty() {
+    static ContentValues createCategoryValues() {
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(CategoryEntry.COLUMN_TITLE, "Fast Food");
+        contentValues.put(CategoryEntry.COLUMN_TITLE, TEST_CATEGORY);
         contentValues.put(CategoryEntry.COLUMN_COLOR, 0);
 
         return contentValues;
     }
 
-    private ContentValues elementEntry(long categoryId) {
+    static ContentValues createElementValues(long categoryId) {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(ElementEntry.COLUMN_TITLE, "Pizza");
@@ -114,7 +116,7 @@ public class TestDB extends AndroidTestCase {
         return contentValues;
     }
 
-    private void validateCursor (Cursor valueCursor, ContentValues expectedValues) {
+    static void validateCursor (Cursor valueCursor, ContentValues expectedValues) {
 
         assertTrue(valueCursor.moveToFirst());
 
