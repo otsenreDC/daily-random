@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
