@@ -1,9 +1,13 @@
 package io.bananalabs.dailyrandom;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,15 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .add(R.id.container, new MainFragment())
                     .commit();
         }
@@ -28,7 +34,9 @@ public class MainActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class MainFragment extends Fragment {
+    public static class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
+        private static final int CATEGORY_LOADER_ID = 1;
 
         public MainFragment() {
         }
@@ -61,7 +69,39 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            // Setting Option Menu
             setHasOptionsMenu(true);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);// Setting Loader Manager
+
+            // Setting Loader Manager
+            getLoaderManager().initLoader(CATEGORY_LOADER_ID, null, this);
+
+        }
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return new CursorLoader(
+                    getActivity(),
+                    DailyRandomContract.CategoryEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    DailyRandomContract.CategoryEntry.COLUMN_TITLE + " ASC");
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
         }
     }
 }
