@@ -21,7 +21,7 @@ import android.widget.TextView;
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
 
-public class MainActivity extends ActionBarActivity {
+public class CategoryActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
