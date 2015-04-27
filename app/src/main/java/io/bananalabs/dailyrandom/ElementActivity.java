@@ -14,23 +14,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
 
-public class CategoryActivity extends ActionBarActivity {
+public class ElementActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_element);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+                    .add(R.id.container, new ElementFragment())
                     .commit();
         }
     }
@@ -38,46 +36,56 @@ public class CategoryActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-        private static final int CATEGORY_LOADER_ID = 0;
+        private static final int ELEMENT_LOADER = 1;
 
-        private SimpleCursorAdapter mCategoryAdapter;
+        private SimpleCursorAdapter mElementAdapter;
 
-        public MainFragment() {
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                getActivity().startActivity(new Intent(getActivity(), NewCategoryActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
+        public ElementFragment() {
         }
 
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.menu_main, menu);
-            super.onCreateOptionsMenu(menu, inflater);
+            inflater.inflate(R.menu.menu_element, menu);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class));
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setHasOptionsMenu(true);
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            mCategoryAdapter = new SimpleCursorAdapter(
+
+            mElementAdapter = new SimpleCursorAdapter(
                     getActivity(),
-                    android.R.layout.simple_expandable_list_item_1,
+                    android.R.layout.simple_list_item_1,
                     null,
-                    new String[] {DailyRandomContract.CategoryEntry.COLUMN_TITLE},
+                    new String[] {DailyRandomContract.ElementEntry.COLUMN_TITLE},
                     new int[] {android.R.id.text1},
                     0
             );
 
-            mCategoryAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            mElementAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                     ((TextView)view).setText(cursor.getString(columnIndex));
@@ -85,55 +93,30 @@ public class CategoryActivity extends ActionBarActivity {
                 }
             });
 
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            ListView listView = (ListView)rootView.findViewById(R.id.list_categories);
-            listView.setAdapter(mCategoryAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    getActivity().startActivity(new Intent(getActivity(), ElementActivity.class));
-                }
-            });
+            View rootView = inflater.inflate(R.layout.fragment_element, container, false);
             return rootView;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            // Setting Option Menu
-            setHasOptionsMenu(true);
-        }
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);// Setting Loader Manager
-
-            // Setting Loader Manager
-            getLoaderManager().initLoader(CATEGORY_LOADER_ID, null, this);
-
         }
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             return new CursorLoader(
                     getActivity(),
-                    DailyRandomContract.CategoryEntry.CONTENT_URI,
+                    DailyRandomContract.ElementEntry.CONTENT_URI,
                     null,
                     null,
                     null,
-                    DailyRandomContract.CategoryEntry.COLUMN_TITLE + " ASC");
+                    DailyRandomContract.ElementEntry.COLUMN_TITLE + " ASC"
+            );
         }
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            mCategoryAdapter.swapCursor(data);
+
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-            mCategoryAdapter.swapCursor(null);
+
         }
     }
 }
