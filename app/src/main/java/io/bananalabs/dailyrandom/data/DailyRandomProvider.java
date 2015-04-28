@@ -23,6 +23,7 @@ public class DailyRandomProvider extends ContentProvider {
     private static final int ELEMENT = 200;
     private static final int ELEMENT_ID = 201;
     private static final int ELEMENT_WITH_CATEGORY = 202;
+    private static final int ELEMENT_WITH_CATGORY_ID = 203;
 
     private static final SQLiteQueryBuilder sDailyRandomSettingQueryBuilder;
 
@@ -62,8 +63,8 @@ public class DailyRandomProvider extends ContentProvider {
 
         matcher.addURI(authority, DailyRandomContract.PATH_ELEMENT, ELEMENT);
         matcher.addURI(authority, DailyRandomContract.PATH_ELEMENT + "/#", ELEMENT_ID);
+        matcher.addURI(authority, DailyRandomContract.PATH_ELEMENT + "/*/#", ELEMENT_WITH_CATGORY_ID);
         matcher.addURI(authority, DailyRandomContract.PATH_ELEMENT + "/*", ELEMENT_WITH_CATEGORY);
-
         matcher.addURI(authority, DailyRandomContract.PATH_CATEGORY, CATEGORY);
         matcher.addURI(authority, DailyRandomContract.PATH_CATEGORY + "/#", CATEGORY_ID);
 
@@ -129,6 +130,17 @@ public class DailyRandomProvider extends ContentProvider {
             case ELEMENT_WITH_CATEGORY:
                 retCursor = getElementByCategory(uri, projection, sortOrder);
                 break;
+            case ELEMENT_WITH_CATGORY_ID:
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        DailyRandomContract.ElementEntry.TABLE_NAME,
+                        projection,
+                        DailyRandomContract.ElementEntry.COLUMN_CAT_KEY + " = " + ContentUris.parseId(uri),
+                        null,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -151,6 +163,8 @@ public class DailyRandomProvider extends ContentProvider {
                 return DailyRandomContract.ElementEntry.CONTENT_TYPE;
             case ELEMENT_ID:
                 return DailyRandomContract.ElementEntry.CONTENT_ITEM_TYPE;
+            case ELEMENT_WITH_CATGORY_ID:
+                return DailyRandomContract.ElementEntry.CONTENT_TYPE;
             default:
                 throw  new UnsupportedOperationException("Unknown uri: " + uri);
         }

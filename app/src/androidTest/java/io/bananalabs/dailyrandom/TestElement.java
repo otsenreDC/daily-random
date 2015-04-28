@@ -5,11 +5,12 @@ import android.test.AndroidTestCase;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Category;
+import io.bananalabs.dailyrandom.model.Element;
 
 /**
- * Created by EDC on 4/26/15.
+ * Created by EDC on 4/27/15.
  */
-public class TestCategory extends AndroidTestCase {
+public class TestElement extends AndroidTestCase {
 
     public void deleteAllRecords() {
         mContext.getContentResolver().delete(
@@ -51,23 +52,36 @@ public class TestCategory extends AndroidTestCase {
         deleteAllRecords();
     }
 
-    public void testInsertCategory() {
-        Category category = new Category("Cines", 39);
-        long mCategoryRowId = category.save(mContext);
-        assertTrue(mCategoryRowId != -1);
-
-        category = new Category("Fast Food", 40);
-        mCategoryRowId = category.save(mContext);
-        assertTrue(mCategoryRowId != -1);
+    long categoryId;
+    private void insertCategory() {
+        Category category = new Category("Fast Food", 9);
+        categoryId = category.save(mContext);
     }
 
-    public void testReadCategory() {
-        Category category = new Category("Cines", 39);
-        long mCategoryRowId = category.save(mContext);
-        assertTrue(mCategoryRowId != -1);
+    long elementId;
+    private long insertElement(long categoryId, String title) {
+        Element element = new Element(0, categoryId, title, 0, 0, 0);
+        elementId = element.save(mContext, categoryId);
+        assertTrue(elementId != -1);
+        return elementId;
+    }
 
-        Category readCategory = Category.readCategory(mContext, mCategoryRowId);
-        assertTrue(readCategory != null);
-        assertEquals(readCategory.getTitle(), "Cines");
+    public void testInsertElement() {
+        insertCategory();
+        insertElement(categoryId, "Mustard");
+        insertElement(categoryId, "Chilis");
+        insertElement(categoryId, "Pizza Hut");
+        insertElement(categoryId, "Pica pollo chino");
+    }
+
+    public void testReadElements() {
+        insertCategory();
+        insertElement(categoryId, "Mustard");
+        insertElement(categoryId, "Chilis");
+        insertElement(categoryId, "Pizza Hut");
+        long id = insertElement(categoryId, "Pica pollo chino");
+
+        Element element = Element.readElement(mContext, id);
+        assertEquals(element.getTitle(), "Pica pollo chino");
     }
 }

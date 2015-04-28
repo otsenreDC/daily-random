@@ -38,7 +38,8 @@ public class Category {
     public static Category readCategory(Context context, long id) {
         Category category = null;
 
-        Cursor cursor = context.getContentResolver().query(DailyRandomContract.CategoryEntry.buildCategoryUri(id),
+        Cursor cursor = context.getContentResolver().query(
+                DailyRandomContract.CategoryEntry.buildCategoryUri(id),
                 null,
                 null,
                 null,

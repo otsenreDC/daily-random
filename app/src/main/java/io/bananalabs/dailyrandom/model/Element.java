@@ -1,6 +1,12 @@
 package io.bananalabs.dailyrandom.model;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+
+import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
 /**
  * Created by EDC on 4/26/15.
@@ -32,18 +38,56 @@ public class Element {
         this.latitude = 0;
     }
 
-    public Element(long _categoryId, String title, double latitude, double longitude) {
-        this._id = -1;
+    public Element(long _id, long _categoryId, String title, long counter, double latitude, double longitude) {
+        this._id = _id;
         this._categoryId = _categoryId;
         this.title = title;
-        this.counter = 0;
+        this.counter = counter;
         this.latitude = latitude;
         this.latitude = longitude;
     }
 
+    public long save(Context context, long categoryId) {
+        this._categoryId = categoryId;
+        return this.save(context);
+    }
+
     public long save(Context context) {
-//        Uri elementUri = context.getContentResolver().insert(DailyRandomContract.ElementEntry.buildElementCategory())
-        return 0;
+        Uri elementUri = context.getContentResolver().insert(DailyRandomContract.ElementEntry.CONTENT_URI, createContentValues());
+        long elementRowId = ContentUris.parseId(elementUri);
+        return elementRowId;
+    }
+
+    public static Element readElement(Context context, long id) {
+        Element element = null;
+
+        Cursor cursor = context.getContentResolver().query(
+                DailyRandomContract.ElementEntry.buildElementUri(id),
+                null,
+                null,
+                null,
+                null);
+
+        if (cursor.moveToFirst()) {
+            int indexTitle = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_TITLE);
+            int indexCounter = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COUNTER);
+            int indexLatitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT);
+            int indexLongitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG);
+            int indexCategoryId = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY);
+            int indexId = cursor.getColumnIndex(DailyRandomContract.ElementEntry._ID);
+
+            String title = cursor.getString(indexTitle);
+            long counter = cursor.getLong(indexCounter);
+            double latitude = cursor.getDouble(indexLatitude);
+            double longitude = cursor.getDouble(indexLongitude);
+            long catId = cursor.getLong(indexCategoryId);
+            long _id = cursor.getLong(indexId);
+
+            element = new Element(_id, catId, title, counter, latitude, longitude);
+        }
+
+        cursor.close();
+        return element;
     }
 
     public long get_id() {
@@ -93,4 +137,17 @@ public class Element {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
+
+    private ContentValues createContentValues() {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_TITLE, this.title);
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COUNTER, this.counter);
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT, this.latitude);
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG, this.longitude);
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY, this._categoryId);
+
+        return contentValues;
+    }
+
 }

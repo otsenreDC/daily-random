@@ -65,6 +65,10 @@ public class DailyRandomContract {
             return CONTENT_URI.buildUpon().appendPath(category).build();
         }
 
+        public static Uri buildElementCategory(long categoryId) {
+            return CONTENT_URI.buildUpon().appendPath(CategoryEntry.TABLE_NAME).appendPath(Long.toString(categoryId)).build();
+        }
+
         public static String getCategoryFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
