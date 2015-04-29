@@ -22,6 +22,13 @@ public class Category {
     public Category() {
         this.title = new String();
         this.color = 0;
+        this._id = -1;
+    }
+
+    public Category(String title, int color) {
+        this._id = -1;
+        this.title = title;
+        this.color = color;
     }
 
     public Category(long _id, String title, int color) {
@@ -34,6 +41,18 @@ public class Category {
         Uri categoryUri = context.getContentResolver().insert(DailyRandomContract.CategoryEntry.CONTENT_URI, this.createContentValues());
         long categoryRowId = ContentUris.parseId(categoryUri);
         return categoryRowId;
+    }
+
+    public long delete(Context context) {
+        long deletedRows = 0;
+        if (this._id != -1) {
+             deletedRows = context.getContentResolver().delete(
+                    DailyRandomContract.CategoryEntry.CONTENT_URI,
+                    DailyRandomContract.CategoryEntry._ID + " = ?",
+                    new String[]{Long.toString(this._id)});
+        }
+
+        return deletedRows;
     }
 
     public static Category readCategoryFromCursor(Cursor cursor) {

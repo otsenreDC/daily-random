@@ -12,7 +12,7 @@ import io.bananalabs.dailyrandom.model.Element;
 /**
  * Created by EDC on 4/27/15.
  */
-public class TestElement extends AndroidTestCase {
+public class TestDElement extends AndroidTestCase {
 
     public void deleteAllRecords() {
         mContext.getContentResolver().delete(
@@ -107,5 +107,17 @@ public class TestElement extends AndroidTestCase {
         assertTrue(elements0.size() == 4);
         assertTrue(elements1.size() == 0);
 
+    }
+
+    public void testDeleteElement() {
+        long catId = insertCategory("Movies");
+        assertTrue(catId != -1);
+        insertElement(catId, "Furious 7");
+        long id = insertElement(catId, "Hangover 3");
+        assertTrue(id != -1);
+
+        Element element = Element.readElement(mContext, id);
+        long deletedRows = element.delete(mContext);
+        assertTrue(deletedRows == 1);
     }
 }

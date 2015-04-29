@@ -14,7 +14,7 @@ import io.bananalabs.dailyrandom.data.DailyRandomDbHelper;
 /**
  * Created by EDC on 3/16/15.
  */
-public class TestDB extends AndroidTestCase {
+public class TestADB extends AndroidTestCase {
 
     static final String TEST_CATEGORY = "Fast Food";
 

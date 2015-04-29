@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Category;
@@ -157,8 +156,7 @@ public class CategoryActivity extends ActionBarActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (category != null) {
-                        // Delete catergy
-                        Toast.makeText(getActivity(), category.getTitle(), Toast.LENGTH_SHORT).show();
+                        category.delete(getActivity());
                     }
                 }
             };

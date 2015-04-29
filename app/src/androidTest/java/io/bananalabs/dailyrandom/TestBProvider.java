@@ -13,9 +13,9 @@ import io.bananalabs.dailyrandom.data.DailyRandomContract;
 /**
  * Created by EDC on 4/25/15.
  */
-public class TestProvider extends AndroidTestCase {
+public class TestBProvider extends AndroidTestCase {
 
-    public static String LOG_TAG = TestProvider.class.getSimpleName();
+    public static String LOG_TAG = TestBProvider.class.getSimpleName();
 
     public void deleteAllRecords() {
         mContext.getContentResolver().delete(
@@ -67,7 +67,7 @@ public class TestProvider extends AndroidTestCase {
 
     public void testInsertReadProvider() {
         // Testing CATEGORY
-        ContentValues categoryValues = TestDB.createCategoryValues();
+        ContentValues categoryValues = TestADB.createCategoryValues();
         Uri categoryUri = mContext.getContentResolver().insert(DailyRandomContract.CategoryEntry.CONTENT_URI, categoryValues);
         long categoryRowId = ContentUris.parseId(categoryUri);
         assertTrue(categoryRowId != -1);
@@ -79,10 +79,10 @@ public class TestProvider extends AndroidTestCase {
                 null,
                 null
         );
-        TestDB.validateCursor(categoryCursor, categoryValues);
+        TestADB.validateCursor(categoryCursor, categoryValues);
 
         // Testing ELEMENT
-        ContentValues elementValues = TestDB.createElementValues(categoryRowId);
+        ContentValues elementValues = TestADB.createElementValues(categoryRowId);
         Uri elementUri = mContext.getContentResolver().insert(DailyRandomContract.ElementEntry.CONTENT_URI, elementValues);
         long elementRowId = ContentUris.parseId(elementUri);
         assertTrue(elementRowId != -1);
@@ -94,24 +94,24 @@ public class TestProvider extends AndroidTestCase {
                 null,
                 null
         );
-        TestDB.validateCursor(elementCursor, elementValues);
+        TestADB.validateCursor(elementCursor, elementValues);
 
         // Testing join
         addAllContentValues(elementValues, categoryValues);
 
         elementCursor = mContext.getContentResolver().query(
-                DailyRandomContract.ElementEntry.buildElementCategory(TestDB.TEST_CATEGORY),
+                DailyRandomContract.ElementEntry.buildElementCategory(TestADB.TEST_CATEGORY),
                 null,
                 null,
                 null,
                 null
         );
 
-        TestDB.validateCursor(elementCursor, elementValues);
+        TestADB.validateCursor(elementCursor, elementValues);
     }
 
     public void testUpdate() {
-        ContentValues categoryValues = TestDB.createCategoryValues();
+        ContentValues categoryValues = TestADB.createCategoryValues();
         Uri categoryUri = mContext.getContentResolver().insert(DailyRandomContract.CategoryEntry.CONTENT_URI, categoryValues);
         long categoryRowId = ContentUris.parseId(categoryUri);
 
@@ -137,9 +137,9 @@ public class TestProvider extends AndroidTestCase {
                 null
         );
 
-        TestDB.validateCursor(cursor, updatedValues);
+        TestADB.validateCursor(cursor, updatedValues);
 
-        ContentValues elementValues = TestDB.createElementValues(categoryRowId);
+        ContentValues elementValues = TestADB.createElementValues(categoryRowId);
         Uri elementUri = mContext.getContentResolver().insert(DailyRandomContract.ElementEntry.CONTENT_URI, elementValues);
         long elementRowId = ContentUris.parseId(elementUri);
 
@@ -165,7 +165,7 @@ public class TestProvider extends AndroidTestCase {
                 null
         );
 
-        TestDB.validateCursor(elementCursor, updatedElementValues);
+        TestADB.validateCursor(elementCursor, updatedElementValues);
     }
 
     public void testDeleteAllRecords() {
@@ -173,7 +173,7 @@ public class TestProvider extends AndroidTestCase {
     }
 
     public void testDelete () {
-        ContentValues categoryValues = TestDB.createCategoryValues();
+        ContentValues categoryValues = TestADB.createCategoryValues();
         Uri categoryUri = mContext.getContentResolver().insert(DailyRandomContract.CategoryEntry.CONTENT_URI, categoryValues);
         long categoryRowId = ContentUris.parseId(categoryUri);
         assertTrue(categoryRowId != -1);

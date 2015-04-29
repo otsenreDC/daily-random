@@ -3,6 +3,7 @@ package io.bananalabs.dailyrandom;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -121,6 +123,14 @@ public class ElementActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
             ListView listView = (ListView)rootView.findViewById(R.id.list_elements);
             listView.setAdapter(mElementAdapter);
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    Element element = Element.readElement(getActivity(), id);
+                    Utilities.showDeleteDialog(getActivity(), positiveAnswerForDeletion(element), null);
+                    return true;
+                }
+            });
             return rootView;
         }
 
@@ -144,6 +154,18 @@ public class ElementActivity extends ActionBarActivity {
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
             mElementAdapter.swapCursor(null);
+        }
+
+        private DialogInterface.OnClickListener positiveAnswerForDeletion(final Element element) {
+
+            return new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (element != null) {
+                        element.delete(getActivity());
+                    }
+                }
+            };
         }
     }
 }

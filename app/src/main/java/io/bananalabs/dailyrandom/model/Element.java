@@ -40,6 +40,15 @@ public class Element {
         this.latitude = 0;
     }
 
+    public Element(long _categoryId, String title, long counter, double latitude, double longitude) {
+        this._id = -1;
+        this._categoryId = _categoryId;
+        this.title = title;
+        this.counter = counter;
+        this.latitude = latitude;
+        this.latitude = longitude;
+    }
+
     public Element(long _id, long _categoryId, String title, long counter, double latitude, double longitude) {
         this._id = _id;
         this._categoryId = _categoryId;
@@ -58,6 +67,17 @@ public class Element {
         Uri elementUri = context.getContentResolver().insert(DailyRandomContract.ElementEntry.CONTENT_URI, createContentValues());
         long elementRowId = ContentUris.parseId(elementUri);
         return elementRowId;
+    }
+
+    public long delete(Context context) {
+        long deleteRows = 0;
+        if (this._id != -1)
+            deleteRows = context.getContentResolver().delete(
+                    DailyRandomContract.ElementEntry.CONTENT_URI,
+                    DailyRandomContract.ElementEntry._ID + " = ?",
+                    new String[]{Long.toString(this._id)});
+
+        return deleteRows;
     }
 
     public static Element readElement(Context context, long id) {
@@ -91,9 +111,10 @@ public class Element {
         if (cursor.moveToFirst()) {
             do {
                 elements.add(Element.elementFromCursor(cursor));
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return elements;
     }
 

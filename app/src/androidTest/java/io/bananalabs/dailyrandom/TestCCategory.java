@@ -9,7 +9,7 @@ import io.bananalabs.dailyrandom.model.Category;
 /**
  * Created by EDC on 4/26/15.
  */
-public class TestCategory extends AndroidTestCase {
+public class TestCCategory extends AndroidTestCase {
 
     public void deleteAllRecords() {
         mContext.getContentResolver().delete(
@@ -69,5 +69,14 @@ public class TestCategory extends AndroidTestCase {
         Category readCategory = Category.readCategory(mContext, mCategoryRowId);
         assertTrue(readCategory != null);
         assertEquals(readCategory.getTitle(), "Cines");
+    }
+
+    public void testDeleteCategory() {
+        Category category = new Category("Movies", 34);
+        long categeryId = category.save(mContext);
+        assertTrue(categeryId != -1);
+        category.set_id(categeryId);
+        long deletedRows = category.delete(mContext);
+        assertTrue(deletedRows == 1);
     }
 }
