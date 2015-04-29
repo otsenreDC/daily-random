@@ -3,6 +3,7 @@ package io.bananalabs.dailyrandom;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -18,8 +19,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
+import io.bananalabs.dailyrandom.model.Category;
 
 
 public class CategoryActivity extends ActionBarActivity {
@@ -99,6 +102,14 @@ public class CategoryActivity extends ActionBarActivity {
 
                 }
             });
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    Category category = Category.readCategory(getActivity(), id);
+                    Utilities.showDeleteDialog(getActivity(), positiveAnswerForDeletion(category), null);
+                    return true;
+                }
+            });
             return rootView;
         }
 
@@ -139,5 +150,19 @@ public class CategoryActivity extends ActionBarActivity {
         public void onLoaderReset(Loader<Cursor> loader) {
             mCategoryAdapter.swapCursor(null);
         }
+
+        private DialogInterface.OnClickListener positiveAnswerForDeletion(final Category category) {
+
+            return new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (category != null) {
+                        // Delete catergy
+                        Toast.makeText(getActivity(), category.getTitle(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+        }
+
     }
 }

@@ -12,4 +12,8 @@
     <string name="done">Done</string>
     <string name="title_activity_new_element">NewElementActivity</string>
 
+    <string name="delete_message">Delete selection?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
 </resources>
