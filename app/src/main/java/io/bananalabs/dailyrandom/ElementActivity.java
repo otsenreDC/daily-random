@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +93,8 @@ public class ElementActivity extends ActionBarActivity {
                     Toast.makeText(getActivity(), "Count : " + elements.size(), Toast.LENGTH_SHORT).show();
                 }
             }
+
+            getLoaderManager().initLoader(ELEMENT_LOADER, null, this);
         }
 
         @Override
@@ -116,6 +119,8 @@ public class ElementActivity extends ActionBarActivity {
             });
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
+            ListView listView = (ListView)rootView.findViewById(R.id.list_elements);
+            listView.setAdapter(mElementAdapter);
             return rootView;
         }
 
@@ -133,12 +138,12 @@ public class ElementActivity extends ActionBarActivity {
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+            mElementAdapter.swapCursor(data);
         }
 
         @Override
         public void onLoaderReset(Loader<Cursor> loader) {
-
+            mElementAdapter.swapCursor(null);
         }
     }
 }

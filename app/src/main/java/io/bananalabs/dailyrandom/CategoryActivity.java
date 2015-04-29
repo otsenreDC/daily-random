@@ -30,7 +30,7 @@ public class CategoryActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+                    .add(R.id.container, new ActivityFragment())
                     .commit();
         }
     }
@@ -38,13 +38,13 @@ public class CategoryActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    public static class ActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
         private static final int CATEGORY_LOADER_ID = 0;
 
         private SimpleCursorAdapter mCategoryAdapter;
 
-        public MainFragment() {
+        public ActivityFragment() {
         }
 
         @Override
