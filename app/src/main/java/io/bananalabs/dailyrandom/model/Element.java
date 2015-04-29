@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
 /**
@@ -69,25 +71,48 @@ public class Element {
                 null);
 
         if (cursor.moveToFirst()) {
-            int indexTitle = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_TITLE);
-            int indexCounter = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COUNTER);
-            int indexLatitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT);
-            int indexLongitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG);
-            int indexCategoryId = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY);
-            int indexId = cursor.getColumnIndex(DailyRandomContract.ElementEntry._ID);
-
-            String title = cursor.getString(indexTitle);
-            long counter = cursor.getLong(indexCounter);
-            double latitude = cursor.getDouble(indexLatitude);
-            double longitude = cursor.getDouble(indexLongitude);
-            long catId = cursor.getLong(indexCategoryId);
-            long _id = cursor.getLong(indexId);
-
-            element = new Element(_id, catId, title, counter, latitude, longitude);
+            element = Element.elementFromCursor(cursor);
         }
 
         cursor.close();
         return element;
+    }
+
+    public static ArrayList<Element> readElementWithCategoryId(Context context, long categoryId) {
+        ArrayList<Element> elements = new ArrayList<>();
+
+        Cursor cursor = context.getContentResolver().query(
+                DailyRandomContract.ElementEntry.buildElementCategory(categoryId),
+                null,
+                null,
+                null,
+                DailyRandomContract.ElementEntry.COLUMN_TITLE + " ASC");
+
+        if (cursor.moveToFirst()) {
+            do {
+                elements.add(Element.elementFromCursor(cursor));
+            }while(cursor.moveToNext());
+        }
+
+        return elements;
+    }
+
+    private static Element elementFromCursor(Cursor cursor) {
+        int indexTitle = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_TITLE);
+        int indexCounter = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COUNTER);
+        int indexLatitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT);
+        int indexLongitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG);
+        int indexCategoryId = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY);
+        int indexId = cursor.getColumnIndex(DailyRandomContract.ElementEntry._ID);
+
+        String title = cursor.getString(indexTitle);
+        long counter = cursor.getLong(indexCounter);
+        double latitude = cursor.getDouble(indexLatitude);
+        double longitude = cursor.getDouble(indexLongitude);
+        long catId = cursor.getLong(indexCategoryId);
+        long _id = cursor.getLong(indexId);
+
+        return new Element(_id, catId, title, counter, latitude, longitude);
     }
 
     public long get_id() {

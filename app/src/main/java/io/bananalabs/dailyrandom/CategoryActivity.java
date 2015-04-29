@@ -72,27 +72,31 @@ public class CategoryActivity extends ActionBarActivity {
                     getActivity(),
                     android.R.layout.simple_expandable_list_item_1,
                     null,
-                    new String[] {DailyRandomContract.CategoryEntry.COLUMN_TITLE},
-                    new int[] {android.R.id.text1},
+                    new String[]{DailyRandomContract.CategoryEntry.COLUMN_TITLE},
+                    new int[]{android.R.id.text1},
                     0
             );
 
             mCategoryAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                    ((TextView)view).setText(cursor.getString(columnIndex));
+                    ((TextView) view).setText(cursor.getString(columnIndex));
                     return true;
                 }
             });
 
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-            ListView listView = (ListView)rootView.findViewById(R.id.list_categories);
+            ListView listView = (ListView) rootView.findViewById(R.id.list_categories);
             listView.setAdapter(mCategoryAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    getActivity().startActivity(new Intent(getActivity(), ElementActivity.class));
+                    Intent intent = new Intent(getActivity(), ElementActivity.class);
+                    long catKey = id;
+                    intent.putExtra(Intent.EXTRA_KEY_EVENT, catKey);
+                    getActivity().startActivity(intent);
+
                 }
             });
             return rootView;

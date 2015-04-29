@@ -16,8 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
+import io.bananalabs.dailyrandom.model.Element;
 
 
 public class ElementActivity extends ActionBarActivity {
@@ -36,11 +40,12 @@ public class ElementActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
         private static final int ELEMENT_LOADER = 1;
 
         private SimpleCursorAdapter mElementAdapter;
+        private long categoryId = -1;
 
         public ElementFragment() {
         }
@@ -59,7 +64,9 @@ public class ElementActivity extends ActionBarActivity {
 
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
-                getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class));
+
+                if (categoryId != -1)
+                    getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class).putExtra(Intent.EXTRA_KEY_EVENT, categoryId));
                 return true;
             }
 
@@ -73,6 +80,21 @@ public class ElementActivity extends ActionBarActivity {
         }
 
         @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            Intent intent = getActivity().getIntent();
+
+            if (intent != null) {
+                long catKey = intent.getLongExtra(Intent.EXTRA_KEY_EVENT, -1);
+                if (catKey != -1) {
+                    categoryId = catKey;
+                    ArrayList<Element> elements = Element.readElementWithCategoryId(getActivity(), catKey);
+                    Toast.makeText(getActivity(), "Count : " + elements.size(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
@@ -80,15 +102,15 @@ public class ElementActivity extends ActionBarActivity {
                     getActivity(),
                     android.R.layout.simple_list_item_1,
                     null,
-                    new String[] {DailyRandomContract.ElementEntry.COLUMN_TITLE},
-                    new int[] {android.R.id.text1},
+                    new String[]{DailyRandomContract.ElementEntry.COLUMN_TITLE},
+                    new int[]{android.R.id.text1},
                     0
             );
 
             mElementAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                    ((TextView)view).setText(cursor.getString(columnIndex));
+                    ((TextView) view).setText(cursor.getString(columnIndex));
                     return true;
                 }
             });
@@ -101,7 +123,7 @@ public class ElementActivity extends ActionBarActivity {
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             return new CursorLoader(
                     getActivity(),
-                    DailyRandomContract.ElementEntry.CONTENT_URI,
+                    DailyRandomContract.ElementEntry.buildElementCategory(categoryId),
                     null,
                     null,
                     null,

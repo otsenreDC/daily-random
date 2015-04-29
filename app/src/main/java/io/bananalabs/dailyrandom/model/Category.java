@@ -24,7 +24,8 @@ public class Category {
         this.color = 0;
     }
 
-    public Category(String title, int color) {
+    public Category(long _id, String title, int color) {
+        this._id = _id;
         this.title = title;
         this.color = color;
     }
@@ -33,6 +34,16 @@ public class Category {
         Uri categoryUri = context.getContentResolver().insert(DailyRandomContract.CategoryEntry.CONTENT_URI, this.createContentValues());
         long categoryRowId = ContentUris.parseId(categoryUri);
         return categoryRowId;
+    }
+
+    public static Category readCategoryFromCursor(Cursor cursor) {
+        int indexTitle = cursor.getColumnIndex(DailyRandomContract.CategoryEntry.COLUMN_TITLE);
+        int indexColor = cursor.getColumnIndex(DailyRandomContract.CategoryEntry.COLUMN_COLOR);
+        int indexId = cursor.getColumnIndex(DailyRandomContract.CategoryEntry._ID);
+        String title = cursor.getString(indexTitle);
+        int color = cursor.getInt(indexColor);
+        long _id = cursor.getLong(indexId);
+        return new Category(_id, title, color);
     }
 
     public static Category readCategory(Context context, long id) {
@@ -46,11 +57,7 @@ public class Category {
                 null);
 
         if (cursor.moveToFirst()) {
-            int indexTitle = cursor.getColumnIndex(DailyRandomContract.CategoryEntry.COLUMN_TITLE);
-            int indexColor = cursor.getColumnIndex(DailyRandomContract.CategoryEntry.COLUMN_COLOR);
-            String title = cursor.getString(indexTitle);
-            int color = cursor.getInt(indexColor);
-            category = new Category(title, color);
+            category = readCategoryFromCursor(cursor);
         }
         cursor.close();
         return category;
@@ -70,6 +77,14 @@ public class Category {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     private ContentValues createContentValues() {

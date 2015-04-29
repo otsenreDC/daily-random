@@ -3,6 +3,8 @@ package io.bananalabs.dailyrandom;
 import android.database.Cursor;
 import android.test.AndroidTestCase;
 
+import java.util.ArrayList;
+
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Category;
 import io.bananalabs.dailyrandom.model.Element;
@@ -53,9 +55,10 @@ public class TestElement extends AndroidTestCase {
     }
 
     long categoryId;
-    private void insertCategory() {
-        Category category = new Category("Fast Food", 9);
+    private long insertCategory(String title) {
+        Category category = new Category(title, 9);
         categoryId = category.save(mContext);
+        return categoryId;
     }
 
     long elementId;
@@ -67,15 +70,15 @@ public class TestElement extends AndroidTestCase {
     }
 
     public void testInsertElement() {
-        insertCategory();
+        insertCategory("Fast Food");
         insertElement(categoryId, "Mustard");
         insertElement(categoryId, "Chilis");
         insertElement(categoryId, "Pizza Hut");
         insertElement(categoryId, "Pica pollo chino");
     }
 
-    public void testReadElements() {
-        insertCategory();
+    public void testReadElement() {
+        insertCategory("Fast Food");
         insertElement(categoryId, "Mustard");
         insertElement(categoryId, "Chilis");
         insertElement(categoryId, "Pizza Hut");
@@ -83,5 +86,26 @@ public class TestElement extends AndroidTestCase {
 
         Element element = Element.readElement(mContext, id);
         assertEquals(element.getTitle(), "Pica pollo chino");
+    }
+
+    public void testReadElements() {
+        long categoryID = insertCategory("Fast Food");
+        insertElement(categoryID, "Mustard");
+        insertElement(categoryID, "Chilis");
+        insertElement(categoryID, "Chilis");
+        insertElement(categoryID, "Pizza Hut");
+        insertElement(categoryID, "Pica pollo chino");
+
+        insertCategory("Parks");
+        insertElement(categoryId, "Mustard");
+        insertElement(categoryId, "Chilis");
+        insertElement(categoryId, "Pizza Hut");
+        insertElement(categoryId, "Pica pollo chino");
+
+        ArrayList<Element> elements0 = Element.readElementWithCategoryId(mContext, categoryId);
+        ArrayList<Element> elements1 = Element.readElementWithCategoryId(mContext, 0);
+        assertTrue(elements0.size() == 4);
+        assertTrue(elements1.size() == 0);
+
     }
 }
