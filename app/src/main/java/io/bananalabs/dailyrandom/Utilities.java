@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import java.util.Random;
+
 /**
  * Created by EDC on 4/29/15.
  */
@@ -15,6 +17,18 @@ public class Utilities {
                 .setPositiveButton(R.string.yes, positiveListener)
                 .setNegativeButton(R.string.no, negativeListener);
         builder.create().show();
+    }
+
+    public static long selectRrandomlyFrom(long[] values)
+    {
+        if (values != null) {
+            Random random = new Random();
+
+            int randomSelection = random.nextInt(values.length);
+            return values[randomSelection];
+        } else {
+            return -1;
+        }
     }
 
 }

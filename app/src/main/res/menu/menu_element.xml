@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.bananalabs.dailyrandom.ElementActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_new_element"
         android:orderInCategory="100"
         android:title="@string/action_new_element"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+    <item android:id="@+id/action_select_element"
+        android:orderInCategory="99"
+        android:title="@string/action_select_element"
+        app:showAsAction="never" />
 </menu>

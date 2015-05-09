@@ -58,6 +58,20 @@ public class Element {
         this.latitude = longitude;
     }
 
+    public Element(Cursor cursor) {
+        Element element = Element.elementFromCursor(cursor);
+        this._id = element.get_id();
+        this._categoryId = element._categoryId;
+        this.title = element.title;
+        this.counter = element.counter;
+        this.latitude = element.latitude;
+        this.latitude = element.longitude;
+    }
+
+    public long incrementCounter() {
+        return ++this.counter;
+    }
+
     public long save(Context context, long categoryId) {
         this._categoryId = categoryId;
         return this.save(context);

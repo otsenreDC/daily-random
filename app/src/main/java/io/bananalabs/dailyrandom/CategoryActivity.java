@@ -54,7 +54,7 @@ public class CategoryActivity extends ActionBarActivity {
             int id = item.getItemId();
 
             //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
+            if (id == R.id.action_new_category) {
                 getActivity().startActivity(new Intent(getActivity(), NewCategoryActivity.class));
                 return true;
             }
@@ -63,7 +63,7 @@ public class CategoryActivity extends ActionBarActivity {
 
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.menu_main, menu);
+            inflater.inflate(R.menu.menu_activity, menu);
             super.onCreateOptionsMenu(menu, inflater);
         }
 
@@ -137,7 +137,7 @@ public class CategoryActivity extends ActionBarActivity {
                     null,
                     null,
                     null,
-                    DailyRandomContract.CategoryEntry.COLUMN_TITLE + " ASC");
+                    DailyRandomContract.CategoryEntry.COLUMN_TITLE + " COLLATE NOCASE ASC");
         }
 
         @Override

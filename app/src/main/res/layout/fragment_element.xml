@@ -11,6 +11,7 @@
     <ListView
         android:id="@+id/list_elements"
         android:layout_width="fill_parent"
+        android:choiceMode="singleChoice"
         android:layout_height="fill_parent"></ListView>
 
 </RelativeLayout>

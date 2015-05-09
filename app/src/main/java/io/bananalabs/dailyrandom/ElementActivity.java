@@ -21,8 +21,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
 
@@ -48,6 +46,7 @@ public class ElementActivity extends ActionBarActivity {
         private static final int ELEMENT_LOADER = 1;
 
         private SimpleCursorAdapter mElementAdapter;
+        private ListView mListView;
         private long categoryId = -1;
 
         public ElementFragment() {
@@ -66,10 +65,18 @@ public class ElementActivity extends ActionBarActivity {
             int id = item.getItemId();
 
             //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-
+            if (id == R.id.action_new_element) {
                 if (categoryId != -1)
                     getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class).putExtra(Intent.EXTRA_KEY_EVENT, categoryId));
+                return true;
+            } else if (id == R.id.action_select_element) {
+                int position = (int)Utilities.selectRrandomlyFrom(this.arrayOfPositions());
+                Cursor cursor = mElementAdapter.getCursor();
+                cursor.moveToPosition(position);
+                Element element = new Element(cursor);
+                Toast.makeText(getActivity(), "Incremented to: " + element.incrementCounter(), Toast.LENGTH_SHORT).show();
+                element.save(getActivity());
+                mListView.setItemChecked(position, true);
                 return true;
             }
 
@@ -91,8 +98,6 @@ public class ElementActivity extends ActionBarActivity {
                 long catKey = intent.getLongExtra(Intent.EXTRA_KEY_EVENT, -1);
                 if (catKey != -1) {
                     categoryId = catKey;
-                    ArrayList<Element> elements = Element.readElementWithCategoryId(getActivity(), catKey);
-                    Toast.makeText(getActivity(), "Count : " + elements.size(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -105,10 +110,10 @@ public class ElementActivity extends ActionBarActivity {
 
             mElementAdapter = new SimpleCursorAdapter(
                     getActivity(),
-                    android.R.layout.simple_list_item_1,
+                    R.layout.list_item_element,
                     null,
                     new String[]{DailyRandomContract.ElementEntry.COLUMN_TITLE},
-                    new int[]{android.R.id.text1},
+                    new int[]{R.id.text_description},
                     0
             );
 
@@ -121,9 +126,9 @@ public class ElementActivity extends ActionBarActivity {
             });
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
-            ListView listView = (ListView)rootView.findViewById(R.id.list_elements);
-            listView.setAdapter(mElementAdapter);
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            mListView = (ListView)rootView.findViewById(R.id.list_elements);
+            mListView.setAdapter(mElementAdapter);
+            mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     Element element = Element.readElement(getActivity(), id);
@@ -142,7 +147,7 @@ public class ElementActivity extends ActionBarActivity {
                     null,
                     null,
                     null,
-                    DailyRandomContract.ElementEntry.COLUMN_TITLE + " ASC"
+                    DailyRandomContract.ElementEntry.COLUMN_TITLE + " COLLATE NOCASE ASC"
             );
         }
 
@@ -166,6 +171,15 @@ public class ElementActivity extends ActionBarActivity {
                     }
                 }
             };
+        }
+
+        private long[] arrayOfPositions() {
+            Cursor cursor = mElementAdapter.getCursor();
+            long[] positions = new long[cursor.getCount()];
+            for(int idx = 0; idx < cursor.getCount(); idx++) {
+                positions[idx] = idx;
+            }
+            return positions;
         }
     }
 }

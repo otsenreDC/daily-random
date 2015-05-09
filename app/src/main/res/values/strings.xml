@@ -3,6 +3,7 @@
 
     <string name="action_new_category">New Category</string>
     <string name="action_new_element">New Element</string>
+    <string name="action_select_element">Make my choice</string>
 
     <string name="title_activity_new_category">NewCategoryActivity</string>
     <string name="title_activity_element">ElementActivity</string>
