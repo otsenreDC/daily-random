@@ -6,8 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.Date;
 import java.util.ArrayList;
 
+import io.bananalabs.dailyrandom.Utilities;
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 
 /**
@@ -21,6 +23,7 @@ public class Element {
     private long counter;
     private double longitude;
     private double latitude;
+    private Date date;
 
     public Element() {
         this._id = -1;
@@ -29,6 +32,7 @@ public class Element {
         this.counter = 0;
         this.latitude = 0;
         this.latitude = 0;
+        this.date = new Date();
     }
 
     public Element(long _categoryId) {
@@ -38,6 +42,7 @@ public class Element {
         this.counter = 0;
         this.latitude = 0;
         this.latitude = 0;
+        this.date = new Date();
     }
 
     public Element(long _categoryId, String title, long counter, double latitude, double longitude) {
@@ -47,15 +52,17 @@ public class Element {
         this.counter = counter;
         this.latitude = latitude;
         this.latitude = longitude;
+        this.date = new Date();
     }
 
-    public Element(long _id, long _categoryId, String title, long counter, double latitude, double longitude) {
+    public Element(long _id, long _categoryId, String title, long counter, double latitude, double longitude, Date date) {
         this._id = _id;
         this._categoryId = _categoryId;
         this.title = title;
         this.counter = counter;
         this.latitude = latitude;
         this.latitude = longitude;
+        this.date = date;
     }
 
     public Element(Cursor cursor) {
@@ -150,6 +157,7 @@ public class Element {
         int indexLatitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT);
         int indexLongitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG);
         int indexCategoryId = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY);
+        int indexDate = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUM_DATETEXT);
         int indexId = cursor.getColumnIndex(DailyRandomContract.ElementEntry._ID);
 
         String title = cursor.getString(indexTitle);
@@ -157,9 +165,10 @@ public class Element {
         double latitude = cursor.getDouble(indexLatitude);
         double longitude = cursor.getDouble(indexLongitude);
         long catId = cursor.getLong(indexCategoryId);
+        String date = cursor.getString(indexDate);
         long _id = cursor.getLong(indexId);
 
-        return new Element(_id, catId, title, counter, latitude, longitude);
+        return new Element(_id, catId, title, counter, latitude, longitude, Utilities.parseDate(date));
     }
 
     public long get_id() {
@@ -217,6 +226,7 @@ public class Element {
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COUNTER, this.counter);
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT, this.latitude);
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG, this.longitude);
+        contentValues.put(DailyRandomContract.ElementEntry.COLUM_DATETEXT, DailyRandomContract.getDbDateString(this.date));
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY, this._categoryId);
 
         return contentValues;

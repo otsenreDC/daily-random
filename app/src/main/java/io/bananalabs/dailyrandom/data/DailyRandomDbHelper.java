@@ -33,6 +33,7 @@ public class DailyRandomDbHelper extends SQLiteOpenHelper {
                     ElementEntry.COLUMN_COUNTER     + INTEGER_NOT_NULL  + COMMA_SEP +
                     ElementEntry.COLUMN_COORD_LAT   + REAL              + COMMA_SEP +
                     ElementEntry.COLUMN_COORD_LONG  + REAL              + COMMA_SEP +
+                    ElementEntry.COLUM_DATETEXT     + TEXT_NOT_NULL     + COMMA_SEP +
                     ElementEntry.COLUMN_CAT_KEY     + INTEGER_NOT_NULL  + COMMA_SEP +
                     // Set up for foreign key
                     FOREIGN_KEY + OPEN_ + ElementEntry.COLUMN_CAT_KEY + CLOSE_ +
