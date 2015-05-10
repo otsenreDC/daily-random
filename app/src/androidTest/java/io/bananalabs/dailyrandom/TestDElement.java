@@ -120,4 +120,27 @@ public class TestDElement extends AndroidTestCase {
         long deletedRows = element.delete(mContext);
         assertTrue(deletedRows == 1);
     }
+
+    public void testUpdateElement() {
+
+        long catId = insertCategory("Big cats");
+        assertTrue(catId != -1);
+
+        insertElement(catId, "Lion");
+        long firstId = insertElement(catId, "Jaguar");
+        insertElement(catId, "Leopard");
+        long secondId = insertElement(catId, "Tiger");
+
+        Element element1 = Element.readElement(mContext, firstId);
+        assertTrue(element1.getTitle().equals("Jaguar"));
+
+        Element element2 = Element.readElement(mContext, secondId);
+        assertTrue(element2.getTitle().equals("Tiger"));
+
+        element2.setTitle("Mountain Lion");
+        element2.update(mContext);
+
+        Element element3 = Element.readElement(mContext, secondId);
+        assertTrue(element3.getTitle().equals("Mountain Lion"));
+    }
 }

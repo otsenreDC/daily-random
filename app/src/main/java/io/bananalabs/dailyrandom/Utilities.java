@@ -22,8 +22,7 @@ public class Utilities {
     public static long selectRrandomlyFrom(long[] values)
     {
         if (values != null) {
-            Random random = new Random();
-
+            Random random = new Random(System.currentTimeMillis());
             int randomSelection = random.nextInt(values.length);
             return values[randomSelection];
         } else {

@@ -78,9 +78,21 @@ public class Element {
     }
 
     public long save(Context context) {
-        Uri elementUri = context.getContentResolver().insert(DailyRandomContract.ElementEntry.CONTENT_URI, createContentValues());
+        Uri elementUri = context.getContentResolver().insert(
+                DailyRandomContract.ElementEntry.CONTENT_URI,
+                createContentValues());
         long elementRowId = ContentUris.parseId(elementUri);
         return elementRowId;
+    }
+
+    public long update(Context context) {
+        int count = context.getContentResolver().update(
+                DailyRandomContract.ElementEntry.CONTENT_URI,
+                this.createContentValues(),
+                DailyRandomContract.ElementEntry._ID + "= ?",
+                new String[]{Long.toString(this._id)}
+        );
+        return count;
     }
 
     public long delete(Context context) {
@@ -120,7 +132,7 @@ public class Element {
                 null,
                 null,
                 null,
-                DailyRandomContract.ElementEntry.COLUMN_TITLE + " ASC");
+                DailyRandomContract.ElementEntry.COLUMN_TITLE + " COLLATE NOCASE ASC");
 
         if (cursor.moveToFirst()) {
             do {

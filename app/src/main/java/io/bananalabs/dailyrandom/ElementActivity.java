@@ -75,7 +75,7 @@ public class ElementActivity extends ActionBarActivity {
                 cursor.moveToPosition(position);
                 Element element = new Element(cursor);
                 Toast.makeText(getActivity(), "Incremented to: " + element.incrementCounter(), Toast.LENGTH_SHORT).show();
-                element.save(getActivity());
+                element.update(getActivity());
                 mListView.setItemChecked(position, true);
                 return true;
             }
@@ -147,7 +147,7 @@ public class ElementActivity extends ActionBarActivity {
                     null,
                     null,
                     null,
-                    DailyRandomContract.ElementEntry.COLUMN_TITLE + " COLLATE NOCASE ASC"
+                    DailyRandomContract.ElementEntry.COLUMN_COUNTER + " ASC"
             );
         }
 
