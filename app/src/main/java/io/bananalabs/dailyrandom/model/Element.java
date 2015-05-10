@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class Element {
         this.counter = 0;
         this.latitude = 0;
         this.latitude = 0;
-        this.date = new Date();
+        this.date = Calendar.getInstance().getTime();
     }
 
     public Element(long _categoryId) {
@@ -42,7 +43,7 @@ public class Element {
         this.counter = 0;
         this.latitude = 0;
         this.latitude = 0;
-        this.date = new Date();
+        this.date = Calendar.getInstance().getTime();
     }
 
     public Element(long _categoryId, String title, long counter, double latitude, double longitude) {
@@ -52,7 +53,7 @@ public class Element {
         this.counter = counter;
         this.latitude = latitude;
         this.latitude = longitude;
-        this.date = new Date();
+        this.date = Calendar.getInstance().getTime();
     }
 
     public Element(long _id, long _categoryId, String title, long counter, double latitude, double longitude, Date date) {
@@ -73,10 +74,20 @@ public class Element {
         this.counter = element.counter;
         this.latitude = element.latitude;
         this.latitude = element.longitude;
+        this.date = element.date;
     }
 
-    public long incrementCounter() {
+    public long updateAsSeleted() {
+        updateDate();
+        return incrementCounter();
+    }
+
+    private long incrementCounter() {
         return ++this.counter;
+    }
+
+    private void updateDate() {
+        this.date = Calendar.getInstance().getTime();
     }
 
     public long save(Context context, long categoryId) {
@@ -217,6 +228,14 @@ public class Element {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     private ContentValues createContentValues() {

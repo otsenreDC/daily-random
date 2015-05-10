@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Set;
 
@@ -114,7 +114,7 @@ public class TestADB extends AndroidTestCase {
         contentValues.put(ElementEntry.COLUMN_COUNTER, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LAT, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LONG, 0);
-        contentValues.put(ElementEntry.COLUM_DATETEXT, DailyRandomContract.getDbDateString(new Date()));
+        contentValues.put(ElementEntry.COLUM_DATETEXT, DailyRandomContract.getDbDateString(Calendar.getInstance().getTime()));
         contentValues.put(ElementEntry.COLUMN_CAT_KEY, categoryId);
 
         return contentValues;

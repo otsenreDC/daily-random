@@ -3,8 +3,8 @@ package io.bananalabs.dailyrandom;
 import android.database.Cursor;
 import android.test.AndroidTestCase;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Category;
@@ -64,7 +64,7 @@ public class TestDElement extends AndroidTestCase {
 
     long elementId;
     private long insertElement(long categoryId, String title) {
-        Element element = new Element(0, categoryId, title, 0, 0, 0, new Date());
+        Element element = new Element(0, categoryId, title, 0, 0, 0, Calendar.getInstance().getTime());
         elementId = element.save(mContext, categoryId);
         assertTrue(elementId != -1);
         return elementId;

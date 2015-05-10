@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import io.bananalabs.dailyrandom.model.Element;
 
@@ -50,7 +50,7 @@ public class NewElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     if (categoryId != -1) {
-                        Element element = new Element(0, categoryId, titleEditText.getText().toString(), 0, 0, 0, new Date());
+                        Element element = new Element(0, categoryId, titleEditText.getText().toString(), 0, 0, 0, Calendar.getInstance().getTime());
                         element.save(getActivity());
                         getActivity().finish();
                     }

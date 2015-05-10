@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,8 +28,7 @@ public class Utilities {
         builder.create().show();
     }
 
-    public static long selectRrandomlyFrom(long[] values)
-    {
+    public static long selectRrandomlyFrom(long[] values) {
         if (values != null) {
             Random random = new Random(System.currentTimeMillis());
             int randomSelection = random.nextInt(values.length);
@@ -47,7 +47,15 @@ public class Utilities {
                 Log.e(LOG_TAG, pe.getLocalizedMessage());
             }
         }
-        return new Date();
+        return Calendar.getInstance().getTime();
+    }
+
+    public static String formatDate(Date date) {
+        if (date != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat(DailyRandomContract.DATE_FORMAT);
+            return sdf.format(date);
+        }
+        return "";
     }
 
 }

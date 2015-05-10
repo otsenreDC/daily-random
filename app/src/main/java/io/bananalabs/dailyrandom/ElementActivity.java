@@ -74,7 +74,8 @@ public class ElementActivity extends ActionBarActivity {
                 Cursor cursor = mElementAdapter.getCursor();
                 cursor.moveToPosition(position);
                 Element element = new Element(cursor);
-                Toast.makeText(getActivity(), "Incremented to: " + element.incrementCounter(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Incremented to: " + element.updateAsSeleted(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "DATE : " + Utilities.formatDate(element.getDate()), Toast.LENGTH_SHORT).show();
                 element.update(getActivity());
                 mListView.setItemChecked(position, true);
                 return true;
@@ -147,7 +148,7 @@ public class ElementActivity extends ActionBarActivity {
                     null,
                     null,
                     null,
-                    DailyRandomContract.ElementEntry.COLUMN_COUNTER + " ASC"
+                    DailyRandomContract.ElementEntry.COLUM_DATETEXT + " DESC"
             );
         }
 
