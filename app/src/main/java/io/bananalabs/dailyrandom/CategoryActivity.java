@@ -35,6 +35,8 @@ public class CategoryActivity extends ActionBarActivity {
                     .add(R.id.container, new ActivityFragment())
                     .commit();
         }
+
+//        PLacesService.startAactionAskPlaces(this, 18.4610001, -69.9609892, 20000, "night_club");
     }
 
     /**
@@ -56,6 +58,9 @@ public class CategoryActivity extends ActionBarActivity {
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_new_category) {
                 getActivity().startActivity(new Intent(getActivity(), NewCategoryActivity.class));
+                return true;
+            } else if (id == R.id.action_help_me) {
+                getActivity().startActivity(new Intent(getActivity(), HelpMeElementActivity.class));
                 return true;
             }
             return super.onOptionsItemSelected(item);
