@@ -5,22 +5,23 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import io.bananalabs.dailyrandom.model.Place;
+import io.bananalabs.dailyrandom.others.PlacesAdapter;
 
 public class HelpMeElementActivity extends ActionBarActivity {
 
@@ -40,19 +41,20 @@ public class HelpMeElementActivity extends ActionBarActivity {
      */
     public static class HelpMeElementFragment extends Fragment implements PlacesBroadcast.PlacesBroadcastListener {
 
+        private final String LOG_TAG = HelpMeElementActivity.class.getSimpleName();
+
         private final String PLACES = "places";
-        private final String DATA_NAME = "name";
         private final long DEFAULT_RADIUS = 1000;
 
         private EditText mRadiusText;
         private Button mSearchButton;
+        private Button mMakeSelection;
         private Spinner mPlaceTypeSpinner;
 
         private PlacesBroadcast mPlacesBroadcast;
 
-        private ArrayList<Place> places = new ArrayList<>();
-        private List<Map<String, Object>> mData;
-        private SimpleAdapter mSimpleAdapter;
+        private ArrayList<Place> mPlaces = new ArrayList<>();
+        private PlacesAdapter mPlacesAdater;
 
         public HelpMeElementFragment() {
         }
@@ -71,7 +73,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
 
         @Override
         public void onSaveInstanceState(Bundle outState) {
-            outState.putParcelableArrayList(PLACES, places);
+            outState.putParcelableArrayList(PLACES, mPlaces);
             super.onSaveInstanceState(outState);
         }
 
@@ -90,19 +92,19 @@ public class HelpMeElementActivity extends ActionBarActivity {
                     performSearch();
                 }
             });
+            mMakeSelection = (Button) rootView.findViewById(R.id.button_select_items);
+            mMakeSelection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    makeSelection();
+                }
+            });
 
             mPlacesBroadcast = new PlacesBroadcast(this);
 
-            mData = new ArrayList<Map<String, Object>>();
-
-            mSimpleAdapter = new SimpleAdapter(
-                    getActivity(),
-                    mData,
-                    android.R.layout.simple_list_item_1,
-                    new String[]{DATA_NAME},
-                    new int[]{android.R.id.text1});
+            mPlacesAdater = new PlacesAdapter(getActivity(), mPlaces);
             ListView listView = (ListView) rootView.findViewById(R.id.list_results);
-            listView.setAdapter(mSimpleAdapter);
+            listView.setAdapter(mPlacesAdater);
             TextView emptyText = (TextView) rootView.findViewById(android.R.id.empty);
             listView.setEmptyView(emptyText);
 
@@ -111,23 +113,17 @@ public class HelpMeElementActivity extends ActionBarActivity {
 
         @Override
         public void onPlacesDataReceived(String json) {
-            new AsyncTask<String, Void, ArrayList<Map<String, Object>>>() {
+            new AsyncTask<String, Void, ArrayList<Place>>() {
                 @Override
-                protected ArrayList<Map<String, Object>> doInBackground(String... params) {
-                    List<Place> places = Place.getPlacesFromPlacesResponse(params[0]);
-                    ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-                    for (Place place : places) {
-                        Map<String, Object> item = new HashMap<String, Object>();
-                        item.put(DATA_NAME, place.getName());
-                        data.add(item);
-                    }
-                    return data;
+                protected ArrayList<Place> doInBackground(String... params) {
+                    ArrayList<Place> places = new ArrayList<>(Place.getPlacesFromPlacesResponse(params[0]));
+                    return places;
                 }
 
                 @Override
-                protected void onPostExecute(ArrayList<Map<String, Object>> data) {
-                    mData.addAll(data);
-                    mSimpleAdapter.notifyDataSetChanged();
+                protected void onPostExecute(ArrayList<Place> data) {
+                    mPlaces.addAll(data);
+                    mPlacesAdater.notifyDataSetChanged();
                 }
             }.execute(json);
         }
@@ -155,9 +151,21 @@ public class HelpMeElementActivity extends ActionBarActivity {
             if ((radius = getRadiusFromInput()) == -1) {
                 return;
             }
-            mData.clear();
+            mPlaces.clear();
             PLacesService.startAactionAskPlaces(getActivity(), 18.4610001, -69.9609892, radius, placeType);
+        }
 
+        private void makeSelection() {
+            SparseBooleanArray selectedPlaces = mPlacesAdater.getCheckedPositions();
+            ArrayList<Place> placesSelected = new ArrayList<>();
+            if (selectedPlaces != null)
+                for (int idx = 0; idx < mPlaces.size(); idx++) {
+                    boolean isChecked = selectedPlaces.get(idx, false);
+                    if (isChecked) {
+                        placesSelected.add(mPlaces.get(idx));
+                    }
+                }
+            Log.d(LOG_TAG, new Gson().toJson(placesSelected));
         }
 
     }

@@ -59,9 +59,6 @@ public class CategoryActivity extends ActionBarActivity {
             if (id == R.id.action_new_category) {
                 getActivity().startActivity(new Intent(getActivity(), NewCategoryActivity.class));
                 return true;
-            } else if (id == R.id.action_help_me) {
-                getActivity().startActivity(new Intent(getActivity(), HelpMeElementActivity.class));
-                return true;
             }
             return super.onOptionsItemSelected(item);
         }
