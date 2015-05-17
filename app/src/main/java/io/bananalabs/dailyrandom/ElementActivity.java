@@ -21,11 +21,20 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
+import io.bananalabs.dailyrandom.model.Place;
 
 
 public class ElementActivity extends ActionBarActivity {
+
+    public final static int REQUEST_PLACES = 1000;
+
+    private final static int FRAGMENT_TAG_ELEMENT = 2000;
+
+    private final static String LOG_TAG = ElementActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,21 @@ public class ElementActivity extends ActionBarActivity {
                     .add(R.id.container, new ElementFragment())
                     .commit();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK)
+            if (REQUEST_PLACES == requestCode) {
+                if (data != null) {
+                    String json = data.getStringExtra(Intent.EXTRA_TEXT);
+                    Fragment fragment = getFragmentManager().findFragmentById(R.id.container);
+                    if (fragment.getClass() == ElementFragment.class) {
+                        ((ElementFragment)fragment).addPlacesFromJson(json);
+                    }
+                }
+            }
     }
 
     /**
@@ -50,6 +74,18 @@ public class ElementActivity extends ActionBarActivity {
         private long categoryId = -1;
 
         public ElementFragment() {
+        }
+
+        // Public methods
+        public void addPlacesFromJson(String json) {
+            List<Place> places = Place.getPlacesFromJsonArray(json);
+            for (Place place : places) {
+                String title = place.getName();
+                double lat = place.getLatitude();
+                double lng = place.getLongitude();
+                Element element = new Element(categoryId, title, 0, lat, lng);
+                element.save(getActivity());
+            }
         }
 
         @Override
@@ -70,7 +106,7 @@ public class ElementActivity extends ActionBarActivity {
                     getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class).putExtra(Intent.EXTRA_KEY_EVENT, categoryId));
                 return true;
             } else if (id == R.id.action_select_element) {
-                int position = (int)Utilities.selectRrandomlyFrom(this.arrayOfPositions());
+                int position = (int) Utilities.selectRrandomlyFrom(this.arrayOfPositions());
                 Cursor cursor = mElementAdapter.getCursor();
                 cursor.moveToPosition(position);
                 Element element = new Element(cursor);
@@ -79,8 +115,8 @@ public class ElementActivity extends ActionBarActivity {
                 element.update(getActivity());
                 mListView.setItemChecked(position, true);
                 return true;
-            }else if (id == R.id.action_help_me) {
-                getActivity().startActivity(new Intent(getActivity(), HelpMeElementActivity.class));
+            } else if (id == R.id.action_help_me) {
+                getActivity().startActivityForResult(new Intent(getActivity(), HelpMeElementActivity.class), REQUEST_PLACES);
                 return true;
             }
 
@@ -116,8 +152,11 @@ public class ElementActivity extends ActionBarActivity {
                     getActivity(),
                     R.layout.list_item_element,
                     null,
-                    new String[]{DailyRandomContract.ElementEntry.COLUMN_TITLE},
-                    new int[]{R.id.text_description},
+                    new String[]{
+                            DailyRandomContract.ElementEntry.COLUMN_TITLE,
+                            DailyRandomContract.ElementEntry.COLUM_DATETEXT,
+                            DailyRandomContract.ElementEntry.COLUMN_COUNTER},
+                    new int[]{R.id.text_title, R.id.text_date, R.id.text_counter},
                     0
             );
 
@@ -130,7 +169,7 @@ public class ElementActivity extends ActionBarActivity {
             });
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
-            mListView = (ListView)rootView.findViewById(R.id.list_elements);
+            mListView = (ListView) rootView.findViewById(R.id.list_elements);
             mListView.setAdapter(mElementAdapter);
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -177,10 +216,11 @@ public class ElementActivity extends ActionBarActivity {
             };
         }
 
+        // Private Methods
         private long[] arrayOfPositions() {
             Cursor cursor = mElementAdapter.getCursor();
             long[] positions = new long[cursor.getCount()];
-            for(int idx = 0; idx < cursor.getCount(); idx++) {
+            for (int idx = 0; idx < cursor.getCount(); idx++) {
                 positions[idx] = idx;
             }
             return positions;

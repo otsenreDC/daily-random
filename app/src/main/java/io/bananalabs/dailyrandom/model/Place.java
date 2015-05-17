@@ -5,7 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +29,15 @@ public class Place implements Parcelable{
         return jsonResponse.results;
     }
 
+    public static List<Place> getPlacesFromJsonArray(String jsonString) {
+        Type listType = new TypeToken<ArrayList<Place>>() {
+        }.getType();
+        List<Place> places = new Gson().fromJson(jsonString, listType);
+        return places;
+    }
+
     class Geometry {
-        Location location;
+        public Location location;
         public Geometry(){}
         public Geometry(double latitude, double longitude) {
             location = new Location(latitude, longitude);
@@ -49,20 +59,20 @@ public class Place implements Parcelable{
         List<Place> results;
     }
 
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getLatitude() {
+        return this.geometry.location.lat;
+    }
+
+    public double getLongitude() {
+        return this.geometry.location.lng;
     }
 
     // Parcelable

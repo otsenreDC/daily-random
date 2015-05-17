@@ -1,5 +1,6 @@
 package io.bananalabs.dailyrandom;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -166,6 +167,10 @@ public class HelpMeElementActivity extends ActionBarActivity {
                     }
                 }
             Log.d(LOG_TAG, new Gson().toJson(placesSelected));
+            Intent intent = new Intent();
+            intent.putExtra(Intent.EXTRA_TEXT, new Gson().toJson(placesSelected));
+            getActivity().setResult(RESULT_OK, intent);
+            getActivity().finish();
         }
 
     }

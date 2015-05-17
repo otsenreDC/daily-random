@@ -31,8 +31,8 @@ public class Element {
         this._categoryId = -1;
         this.title = new String();
         this.counter = 0;
-        this.latitude = 0;
-        this.latitude = 0;
+        this.latitude = -1;
+        this.latitude = -1;
         this.date = Calendar.getInstance().getTime();
     }
 
@@ -41,8 +41,8 @@ public class Element {
         this._categoryId = _categoryId;
         this.title = new String();
         this.counter = 0;
-        this.latitude = 0;
-        this.latitude = 0;
+        this.latitude = -1;
+        this.latitude = -1;
         this.date = Calendar.getInstance().getTime();
     }
 
@@ -180,6 +180,10 @@ public class Element {
         long _id = cursor.getLong(indexId);
 
         return new Element(_id, catId, title, counter, latitude, longitude, Utilities.parseDate(date));
+    }
+
+    public boolean hasLocation() {
+        return (this.latitude > -1 && this.longitude > - 1);
     }
 
     public long get_id() {
