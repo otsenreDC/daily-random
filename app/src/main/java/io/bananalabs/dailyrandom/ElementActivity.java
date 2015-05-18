@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,8 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -26,13 +25,12 @@ import java.util.List;
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
 import io.bananalabs.dailyrandom.model.Place;
+import io.bananalabs.dailyrandom.others.ElementCursorAdapter;
 
 
 public class ElementActivity extends ActionBarActivity {
 
     public final static int REQUEST_PLACES = 1000;
-
-    private final static int FRAGMENT_TAG_ELEMENT = 2000;
 
     private final static String LOG_TAG = ElementActivity.class.getSimpleName();
 
@@ -65,11 +63,11 @@ public class ElementActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ElementCursorAdapter.OnMapButtonClickListener {
 
         private static final int ELEMENT_LOADER = 1;
 
-        private SimpleCursorAdapter mElementAdapter;
+        private ElementCursorAdapter mElementAdapter;
         private ListView mListView;
         private long categoryId = -1;
 
@@ -148,25 +146,8 @@ public class ElementActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            mElementAdapter = new SimpleCursorAdapter(
-                    getActivity(),
-                    R.layout.list_item_element,
-                    null,
-                    new String[]{
-                            DailyRandomContract.ElementEntry.COLUMN_TITLE,
-                            DailyRandomContract.ElementEntry.COLUM_DATETEXT,
-                            DailyRandomContract.ElementEntry.COLUMN_COUNTER},
-                    new int[]{R.id.text_title, R.id.text_date, R.id.text_counter},
-                    0
-            );
-
-            mElementAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-                @Override
-                public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                    ((TextView) view).setText(cursor.getString(columnIndex));
-                    return true;
-                }
-            });
+            mElementAdapter = new ElementCursorAdapter(getActivity(), null, 0);
+            mElementAdapter.setMapButtonClickListener(this);
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
             mListView = (ListView) rootView.findViewById(R.id.list_elements);
@@ -190,7 +171,7 @@ public class ElementActivity extends ActionBarActivity {
                     null,
                     null,
                     null,
-                    DailyRandomContract.ElementEntry.COLUM_DATETEXT + " DESC"
+                    DailyRandomContract.ElementEntry.COLUMN_DATETEXT + " DESC"
             );
         }
 
@@ -214,6 +195,11 @@ public class ElementActivity extends ActionBarActivity {
                     }
                 }
             };
+        }
+
+        @Override
+        public void onClick(Element element) {
+            Log.d(LOG_TAG, element.getTitle());
         }
 
         // Private Methods

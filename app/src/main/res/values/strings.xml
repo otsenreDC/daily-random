@@ -8,6 +8,8 @@
 
     <string name="title_activity_new_category">NewCategoryActivity</string>
     <string name="title_activity_element">ElementActivity</string>
+    <string name="title_activity_help_me_element">HelpMeElementActivity</string>
+    <string name="title_activity_new_element">NewElementActivity</string>
 
     <string name="category_name">Category\'s name</string>
     <string name="element_name">Element\'s name</string>
@@ -16,12 +18,12 @@
     <string name="done">Done</string>
     <string name="search">Search</string>
     <string name="make_selection">Make selection</string>
-    <string name="title_activity_new_element">NewElementActivity</string>
+    <string name="exclude">Exclude</string>
+    <string name="get_met_there">Get me there</string>
 
     <string name="delete_message">Delete selection?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-    <string name="title_activity_help_me_element">HelpMeElementActivity</string>
     
     <string-array name="place_types">
         <item>amusement_park</item>

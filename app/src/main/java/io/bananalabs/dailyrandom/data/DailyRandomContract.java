@@ -76,7 +76,7 @@ public class DailyRandomContract {
         // Double, longitude for latitude (if apply)
         public static final String COLUMN_COORD_LONG = "coord_long";
         // Date, last selection date
-        public static final String COLUM_DATETEXT = "date";
+        public static final String COLUMN_DATETEXT = "date";
 
         public static Uri buildElementUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

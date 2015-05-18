@@ -42,7 +42,7 @@ public class Element {
         this.title = new String();
         this.counter = 0;
         this.latitude = -1;
-        this.latitude = -1;
+        this.longitude = -1;
         this.date = Calendar.getInstance().getTime();
     }
 
@@ -52,7 +52,7 @@ public class Element {
         this.title = title;
         this.counter = counter;
         this.latitude = latitude;
-        this.latitude = longitude;
+        this.longitude = longitude;
         this.date = Calendar.getInstance().getTime();
     }
 
@@ -62,7 +62,7 @@ public class Element {
         this.title = title;
         this.counter = counter;
         this.latitude = latitude;
-        this.latitude = longitude;
+        this.longitude = longitude;
         this.date = date;
     }
 
@@ -73,7 +73,7 @@ public class Element {
         this.title = element.title;
         this.counter = element.counter;
         this.latitude = element.latitude;
-        this.latitude = element.longitude;
+        this.longitude = element.longitude;
         this.date = element.date;
     }
 
@@ -168,7 +168,7 @@ public class Element {
         int indexLatitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT);
         int indexLongitude = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG);
         int indexCategoryId = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY);
-        int indexDate = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUM_DATETEXT);
+        int indexDate = cursor.getColumnIndex(DailyRandomContract.ElementEntry.COLUMN_DATETEXT);
         int indexId = cursor.getColumnIndex(DailyRandomContract.ElementEntry._ID);
 
         String title = cursor.getString(indexTitle);
@@ -249,7 +249,7 @@ public class Element {
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COUNTER, this.counter);
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LAT, this.latitude);
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_COORD_LONG, this.longitude);
-        contentValues.put(DailyRandomContract.ElementEntry.COLUM_DATETEXT, DailyRandomContract.getDbDateString(this.date));
+        contentValues.put(DailyRandomContract.ElementEntry.COLUMN_DATETEXT, DailyRandomContract.getDbDateString(this.date));
         contentValues.put(DailyRandomContract.ElementEntry.COLUMN_CAT_KEY, this._categoryId);
 
         return contentValues;

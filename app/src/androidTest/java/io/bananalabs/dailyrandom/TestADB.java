@@ -114,7 +114,7 @@ public class TestADB extends AndroidTestCase {
         contentValues.put(ElementEntry.COLUMN_COUNTER, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LAT, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LONG, 0);
-        contentValues.put(ElementEntry.COLUM_DATETEXT, DailyRandomContract.getDbDateString(Calendar.getInstance().getTime()));
+        contentValues.put(ElementEntry.COLUMN_DATETEXT, DailyRandomContract.getDbDateString(Calendar.getInstance().getTime()));
         contentValues.put(ElementEntry.COLUMN_CAT_KEY, categoryId);
 
         return contentValues;
