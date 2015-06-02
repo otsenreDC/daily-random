@@ -2,6 +2,8 @@ package io.bananalabs.dailyrandom;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -40,9 +46,12 @@ public class HelpMeElementActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class HelpMeElementFragment extends Fragment implements PlacesBroadcast.PlacesBroadcastListener {
+    public static class HelpMeElementFragment extends Fragment implements PlacesBroadcast.PlacesBroadcastListener, GoogleApiClient.ConnectionCallbacks,
+            GoogleApiClient.OnConnectionFailedListener {
 
         private final String LOG_TAG = HelpMeElementActivity.class.getSimpleName();
+
+        private static final int REQUEST_RESOLVE_ERROR = 1001;
 
         private final String PLACES = "places";
         private final long DEFAULT_RADIUS = 1000;
@@ -57,7 +66,20 @@ public class HelpMeElementActivity extends ActionBarActivity {
         private ArrayList<Place> mPlaces = new ArrayList<>();
         private PlacesAdapter mPlacesAdater;
 
+        private GoogleApiClient mGoogleApiClient;
+        private boolean mResolvingError;
+        private Location mLocation;
+
         public HelpMeElementFragment() {
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            if (!mResolvingError) {
+                this.mGoogleApiClient.connect();
+            }
         }
 
         @Override
@@ -70,6 +92,12 @@ public class HelpMeElementActivity extends ActionBarActivity {
         public void onPause() {
             getActivity().unregisterReceiver(mPlacesBroadcast);
             super.onPause();
+        }
+
+        @Override
+        public void onStop() {
+            mGoogleApiClient.disconnect();
+            super.onStop();
         }
 
         @Override
@@ -109,6 +137,11 @@ public class HelpMeElementActivity extends ActionBarActivity {
             TextView emptyText = (TextView) rootView.findViewById(android.R.id.empty);
             listView.setEmptyView(emptyText);
 
+            this.mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this).build();
+
             return rootView;
         }
 
@@ -127,6 +160,33 @@ public class HelpMeElementActivity extends ActionBarActivity {
                     mPlacesAdater.notifyDataSetChanged();
                 }
             }.execute(json);
+        }
+
+        @Override
+        public void onConnected(Bundle bundle) {
+            mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            Toast.makeText(getActivity(), mLocation.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onConnectionSuspended(int i) {
+
+        }
+
+        @Override
+        public void onConnectionFailed(ConnectionResult connectionResult) {
+            if (this.mResolvingError) {
+                return;
+            } else if (connectionResult.hasResolution()) {
+                try {
+                    this.mResolvingError = true;
+                    connectionResult.startResolutionForResult(getActivity(), REQUEST_RESOLVE_ERROR);
+                } catch (IntentSender.SendIntentException e) {
+                    this.mGoogleApiClient.connect();
+                }
+            } else {
+                this.mResolvingError = false;
+            }
         }
 
         // Private methods
@@ -153,7 +213,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 return;
             }
             mPlaces.clear();
-            PLacesService.startAactionAskPlaces(getActivity(), 18.4610001, -69.9609892, radius, placeType);
+            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), -mLocation.getLongitude(), radius, placeType);
         }
 
         private void makeSelection() {

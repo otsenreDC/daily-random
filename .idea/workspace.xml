@@ -23,16 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="228f51eb-4821-4b55-bbdb-6d0ef104ed6c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DailyRandom.iml" afterPath="$PROJECT_DIR$/DailyRandom.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/ElementActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/ElementActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/others/ElementCursorAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/others/ElementCursorAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/NewElementActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/NewElementActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/touch_selector.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/touch_selector.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Daily Random.iws" />
@@ -115,11 +107,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.091561936">
+            <state vertical-scroll-proportion="-0.91071427">
               <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -149,39 +151,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="236" column="16" selection-start-line="236" selection-start-column="16" selection-end-line="236" selection-end-column="16" />
+              <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2400#2401#0" expanded="false" />
-                <element signature="e#2437#2438#0" expanded="false" />
-                <element signature="e#2470#2471#0" expanded="false" />
-                <element signature="e#2530#2531#0" expanded="false" />
-                <element signature="e#6245#6246#0" expanded="false" />
-                <element signature="e#6271#6272#0" expanded="false" />
-                <element signature="e#6307#6308#0" expanded="false" />
-                <element signature="e#6337#6338#0" expanded="false" />
-                <element signature="e#6373#6374#0" expanded="false" />
-                <element signature="e#6407#6408#0" expanded="false" />
-                <element signature="e#6459#6460#0" expanded="false" />
-                <element signature="e#6505#6506#0" expanded="false" />
-                <element signature="e#6537#6538#0" expanded="false" />
-                <element signature="e#6565#6566#0" expanded="false" />
-                <element signature="e#6607#6608#0" expanded="false" />
-                <element signature="e#6641#6642#0" expanded="false" />
-                <element signature="e#6673#6674#0" expanded="false" />
-                <element signature="e#6703#6704#0" expanded="false" />
-                <element signature="e#6747#6748#0" expanded="false" />
-                <element signature="e#6785#6786#0" expanded="false" />
-                <element signature="e#6821#6822#0" expanded="false" />
-                <element signature="e#6853#6854#0" expanded="false" />
-                <element signature="e#6903#6904#0" expanded="false" />
-                <element signature="e#6945#6946#0" expanded="false" />
-                <element signature="e#6980#6981#0" expanded="false" />
-                <element signature="e#7011#7012#0" expanded="false" />
-                <element signature="e#7059#7060#0" expanded="false" />
-                <element signature="e#7099#7100#0" expanded="false" />
-                <element signature="e#7193#7194#0" expanded="false" />
-                <element signature="e#7225#7226#0" expanded="false" />
+                <element signature="e#6217#6218#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -192,20 +164,21 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1573#2023#0" expanded="false" />
+                <element signature="e#2022#2023#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelpMeElementActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HelpMeElementActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="119" column="84" selection-start-line="119" selection-start-column="84" selection-end-line="119" selection-end-column="84" />
-              <folding>
-                <element signature="e#3414#3583#0" expanded="true" />
-                <element signature="e#3582#3583#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.40783033">
+              <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1659,6 +1632,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/touch_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java" />
       </list>
     </option>
   </component>
@@ -1836,6 +1811,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2108,7 +2087,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969475" sideWeight="0.49921995" order="1" side_tool="false" content_ui="tabs" />
@@ -2190,16 +2169,16 @@
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java</url>
-          <line>185</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java</url>
+          <line>166</line>
           <properties />
-          <option name="timeStamp" value="107" />
+          <option name="timeStamp" value="108" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="108" />
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2271,14 +2250,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="374" column="16" selection-start-line="374" selection-start-column="16" selection-end-line="374" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="78" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2555,61 +2526,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="119" column="84" selection-start-line="119" selection-start-column="84" selection-end-line="119" selection-end-column="84" />
-          <folding>
-            <element signature="e#3414#3583#0" expanded="true" />
-            <element signature="e#3582#3583#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/NewElementActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="236" column="16" selection-start-line="236" selection-start-column="16" selection-end-line="236" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#2400#2401#0" expanded="false" />
-            <element signature="e#2437#2438#0" expanded="false" />
-            <element signature="e#2470#2471#0" expanded="false" />
-            <element signature="e#2530#2531#0" expanded="false" />
-            <element signature="e#6245#6246#0" expanded="false" />
-            <element signature="e#6271#6272#0" expanded="false" />
-            <element signature="e#6307#6308#0" expanded="false" />
-            <element signature="e#6337#6338#0" expanded="false" />
-            <element signature="e#6373#6374#0" expanded="false" />
-            <element signature="e#6407#6408#0" expanded="false" />
-            <element signature="e#6459#6460#0" expanded="false" />
-            <element signature="e#6505#6506#0" expanded="false" />
-            <element signature="e#6537#6538#0" expanded="false" />
-            <element signature="e#6565#6566#0" expanded="false" />
-            <element signature="e#6607#6608#0" expanded="false" />
-            <element signature="e#6641#6642#0" expanded="false" />
-            <element signature="e#6673#6674#0" expanded="false" />
-            <element signature="e#6703#6704#0" expanded="false" />
-            <element signature="e#6747#6748#0" expanded="false" />
-            <element signature="e#6785#6786#0" expanded="false" />
-            <element signature="e#6821#6822#0" expanded="false" />
-            <element signature="e#6853#6854#0" expanded="false" />
-            <element signature="e#6903#6904#0" expanded="false" />
-            <element signature="e#6945#6946#0" expanded="false" />
-            <element signature="e#6980#6981#0" expanded="false" />
-            <element signature="e#7011#7012#0" expanded="false" />
-            <element signature="e#7059#7060#0" expanded="false" />
-            <element signature="e#7099#7100#0" expanded="false" />
-            <element signature="e#7193#7194#0" expanded="false" />
-            <element signature="e#7225#7226#0" expanded="false" />
+            <element signature="e#1573#2023#0" expanded="false" />
+            <element signature="e#2022#2023#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2648,8 +2572,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.091561936">
+        <state vertical-scroll-proportion="-0.91071427">
           <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/model/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding>
+            <element signature="e#6217#6218#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/bananalabs/dailyrandom/HelpMeElementActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40783033">
+          <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
           <folding />
         </state>
       </provider>
