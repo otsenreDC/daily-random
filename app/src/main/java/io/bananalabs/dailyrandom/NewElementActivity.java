@@ -50,7 +50,7 @@ public class NewElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     if (categoryId != -1) {
-                        Element element = new Element(0, categoryId, titleEditText.getText().toString(), 0, 0, 0, Calendar.getInstance().getTime());
+                        Element element = new Element(0, categoryId, titleEditText.getText().toString(), 0, -1, -1, Calendar.getInstance().getTime());
                         element.save(getActivity());
                         getActivity().finish();
                     }

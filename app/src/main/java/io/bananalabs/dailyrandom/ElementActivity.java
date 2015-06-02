@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -199,7 +199,9 @@ public class ElementActivity extends ActionBarActivity {
 
         @Override
         public void onClick(Element element) {
-            Log.d(LOG_TAG, element.getTitle());
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(String.format("http://maps.google.com/maps?daddr=%s,%s", element.getLatitude(), element.getLongitude())));
+            getActivity().startActivity(intent);
         }
 
         // Private Methods

@@ -183,7 +183,7 @@ public class Element {
     }
 
     public boolean hasLocation() {
-        return (this.latitude > -1 && this.longitude > - 1);
+        return (this.latitude != -1 && this.longitude != - 1);
     }
 
     public long get_id() {
