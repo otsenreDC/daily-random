@@ -1,4 +1,4 @@
-package io.bananalabs.dailyrandom;
+package io.bananalabs.dailyrandom.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -27,6 +27,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import io.bananalabs.dailyrandom.PLacesService;
+import io.bananalabs.dailyrandom.PlacesBroadcast;
+import io.bananalabs.dailyrandom.R;
 import io.bananalabs.dailyrandom.model.Place;
 import io.bananalabs.dailyrandom.others.PlacesAdapter;
 

@@ -1,4 +1,4 @@
-package io.bananalabs.dailyrandom;
+package io.bananalabs.dailyrandom.activity;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -17,11 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import io.bananalabs.dailyrandom.R;
+import io.bananalabs.dailyrandom.Utilities;
 import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
 import io.bananalabs.dailyrandom.model.Place;
@@ -160,6 +163,16 @@ public class ElementActivity extends ActionBarActivity {
                     return true;
                 }
             });
+
+            ImageButton imageButton = (ImageButton)rootView.findViewById(R.id.button_add_element);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), NewElementActivity.class);
+                    v.getContext().startActivity(intent);
+                }
+            });
+
             return rootView;
         }
 

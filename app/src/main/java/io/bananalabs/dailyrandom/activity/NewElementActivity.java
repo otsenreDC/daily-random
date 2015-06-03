@@ -1,4 +1,4 @@
-package io.bananalabs.dailyrandom;
+package io.bananalabs.dailyrandom.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
+import io.bananalabs.dailyrandom.R;
 import io.bananalabs.dailyrandom.model.Element;
 
 

@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.bananalabs.dailyrandom.ElementActivity"
+    tools:context="io.bananalabs.dailyrandom.activity.ElementActivity"
     tools:ignore="MergeRootFrame" />

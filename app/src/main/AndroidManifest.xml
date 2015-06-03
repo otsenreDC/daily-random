@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".CategoryActivity"
+            android:name=".activity.CategoryActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +26,15 @@
             android:authorities="io.bananalabs.dailyrandom" />
 
         <activity
-            android:name=".NewCategoryActivity"
+            android:name=".activity.NewCategoryActivity"
             android:label="@string/title_activity_new_category" >
         </activity>
         <activity
-            android:name=".ElementActivity"
+            android:name=".activity.ElementActivity"
             android:label="@string/title_activity_element" >
         </activity>
         <activity
-            android:name=".NewElementActivity"
+            android:name=".activity.NewElementActivity"
             android:label="@string/title_activity_new_element" >
         </activity>
 
@@ -44,7 +44,7 @@
         </service>
 
         <activity
-            android:name=".HelpMeElementActivity"
+            android:name=".activity.HelpMeElementActivity"
             android:label="@string/title_activity_help_me_element" >
         </activity>
 
