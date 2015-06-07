@@ -1,5 +1,6 @@
 package io.bananalabs.dailyrandom.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
@@ -13,12 +14,12 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -122,6 +123,9 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     performSearch();
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mRadiusText.getWindowToken(), 0);
                 }
             });
             mMakeSelection = (Button) rootView.findViewById(R.id.button_select_items);
@@ -168,7 +172,6 @@ public class HelpMeElementActivity extends ActionBarActivity {
         @Override
         public void onConnected(Bundle bundle) {
             mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            Toast.makeText(getActivity(), mLocation.toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -216,7 +219,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 return;
             }
             mPlaces.clear();
-            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), -mLocation.getLongitude(), radius, placeType);
+            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), mLocation.getLongitude(), radius, placeType);
         }
 
         private void makeSelection() {

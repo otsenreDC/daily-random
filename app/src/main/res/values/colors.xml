@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF6C12</color>
-    <color name="colorSecondary">#D95E43</color>
+    <color name="colorSecondary">#d35400</color>
+    <color name="blue_search">#439fde</color>
+    <color name="orange_select">#f39c12</color>
+    <color name="green_create">#1abc9c</color>
 </resources>

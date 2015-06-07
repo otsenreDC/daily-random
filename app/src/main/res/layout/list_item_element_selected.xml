@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorSecondary"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
-    android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
-    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
-    android:paddingStart="?android:attr/listPreferredItemPaddingLeft">>
+    android:padding="?android:attr/listPreferredItemPaddingRight">
 
     <TextView
         android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="Burger King"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -31,6 +30,7 @@
 
             <TextView
                 android:id="@+id/text_date"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-2-2015"
@@ -38,6 +38,7 @@
 
             <TextView
                 android:id="@+id/text_counter"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
@@ -51,10 +52,12 @@
             android:gravity="end"
             android:orientation="vertical">
 
+
             <CheckBox
                 android:visibility="gone"
                 android:id="@+id/checkbox_exclude"
                 android:layout_width="wrap_content"
+                android:textColor="@android:color/white"
                 android:layout_height="wrap_content"
                 android:text="@string/exclude" />
 

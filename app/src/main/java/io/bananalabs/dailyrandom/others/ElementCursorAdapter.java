@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +20,10 @@ import io.bananalabs.dailyrandom.model.Element;
  * Created by EDC on 5/17/15.
  */
 public class ElementCursorAdapter extends CursorAdapter {
+
+    private static final int VIEW_TYPE_COUNT = 2;
+    private static final int VIEW_TYPE_SELECTED = 0;
+    private static final int VIEW_TYPE_DEFAULT = 1;
 
     private OnMapButtonClickListener mapButtonClickListener;
 
@@ -38,7 +42,20 @@ public class ElementCursorAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_element, parent, false);
+        int viewType = getItemViewType(cursor.getPosition());
+        int layoutId = -1;
+        switch (viewType) {
+            case VIEW_TYPE_SELECTED: {
+                layoutId = R.layout.list_item_element_selected;
+                break;
+            }
+            case VIEW_TYPE_DEFAULT: {
+                layoutId = R.layout.list_item_element;
+                break;
+            }
+        }
+
+        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         view.setTag(viewHolder);
 
@@ -73,19 +90,29 @@ public class ElementCursorAdapter extends CursorAdapter {
 
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return (position == 0) ? VIEW_TYPE_SELECTED : VIEW_TYPE_DEFAULT;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return VIEW_TYPE_COUNT;
+    }
+
     public class ViewHolder {
         public final TextView title;
         public final TextView date;
         public final TextView counter;
         public final CheckBox exclude;
-        public final Button takeMeThere;
+        public final ImageButton takeMeThere;
 
         public ViewHolder(View view) {
             title = (TextView) view.findViewById(R.id.text_title);
             date = (TextView) view.findViewById(R.id.text_date);
             counter = (TextView) view.findViewById(R.id.text_counter);
             exclude = (CheckBox) view.findViewById(R.id.checkbox_exclude);
-            takeMeThere = (Button) view.findViewById(R.id.button_take_me_there);
+            takeMeThere = (ImageButton) view.findViewById(R.id.button_take_me_there);
         }
     }
 

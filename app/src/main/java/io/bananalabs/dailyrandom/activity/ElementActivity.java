@@ -11,15 +11,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -90,44 +88,8 @@ public class ElementActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.menu_element, menu);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_new_element) {
-                if (categoryId != -1)
-                    getActivity().startActivity(new Intent(getActivity(), NewElementActivity.class).putExtra(Intent.EXTRA_KEY_EVENT, categoryId));
-                return true;
-            } else if (id == R.id.action_select_element) {
-                int position = (int) Utilities.selectRrandomlyFrom(this.arrayOfPositions());
-                Cursor cursor = mElementAdapter.getCursor();
-                cursor.moveToPosition(position);
-                Element element = new Element(cursor);
-                Toast.makeText(getActivity(), "Incremented to: " + element.updateAsSeleted(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "DATE : " + Utilities.formatDate(element.getDate()), Toast.LENGTH_SHORT).show();
-                element.update(getActivity());
-                mListView.setItemChecked(position, true);
-                return true;
-            } else if (id == R.id.action_help_me) {
-                getActivity().startActivityForResult(new Intent(getActivity(), HelpMeElementActivity.class), REQUEST_PLACES);
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-
-        @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setHasOptionsMenu(true);
         }
 
         @Override
@@ -164,12 +126,35 @@ public class ElementActivity extends ActionBarActivity {
                 }
             });
 
-            ImageButton imageButton = (ImageButton)rootView.findViewById(R.id.button_add_element);
-            imageButton.setOnClickListener(new View.OnClickListener() {
+            FloatingActionButton fabAddElement = (FloatingActionButton) rootView.findViewById(R.id.button_add_element);
+            fabAddElement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), NewElementActivity.class);
                     v.getContext().startActivity(intent);
+                }
+            });
+
+            FloatingActionButton fabRandom = (FloatingActionButton)rootView.findViewById(R.id.button_random);
+            fabRandom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) Utilities.selectRrandomlyFrom(arrayOfPositions());
+                    Cursor cursor = mElementAdapter.getCursor();
+                    cursor.moveToPosition(position);
+                    Element element = new Element(cursor);
+                    Toast.makeText(getActivity(), "Incremented to: " + element.updateAsSeleted(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "DATE : " + Utilities.formatDate(element.getDate()), Toast.LENGTH_SHORT).show();
+                    element.update(getActivity());
+                    mListView.setItemChecked(position, true);
+                }
+            });
+
+            FloatingActionButton fabSearch = (FloatingActionButton) rootView.findViewById(R.id.button_search_places);
+            fabSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().startActivityForResult(new Intent(getActivity(), HelpMeElementActivity.class), REQUEST_PLACES);
                 }
             });
 

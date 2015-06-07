@@ -7,27 +7,15 @@
                 android:duration="@android:integer/config_shortAnimTime"
                 android:valueTo="8dp"
                 android:valueType="floatType"/>
-            <objectAnimator
-                android:duration="100"
-                android:propertyName="rotation"
-                android:valueFrom="0"
-                android:valueTo="180" />
-            <!-- you could have other objectAnimator elements
-                 here for "x" and "y", or other properties -->
         </set>
     </item>
     <item
         android:state_pressed="false">
         <set>
             <objectAnimator android:propertyName="translationZ"
-                android:duration="100"
+                android:duration="@android:integer/config_shortAnimTime"
                 android:valueTo="4dp"
                 android:valueType="floatType"/>
-            <objectAnimator
-                android:duration="0"
-                android:propertyName="rotation"
-                android:valueFrom="0"
-                android:valueTo="0" />
         </set>
     </item>
 </selector>
