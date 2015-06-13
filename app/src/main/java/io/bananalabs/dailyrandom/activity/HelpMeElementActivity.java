@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import io.bananalabs.dailyrandom.PLacesService;
 import io.bananalabs.dailyrandom.PlacesBroadcast;
 import io.bananalabs.dailyrandom.R;
+import io.bananalabs.dailyrandom.Utilities;
 import io.bananalabs.dailyrandom.model.Place;
 import io.bananalabs.dailyrandom.others.PlacesAdapter;
 
@@ -122,10 +124,14 @@ public class HelpMeElementActivity extends ActionBarActivity {
             mSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    performSearch();
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mRadiusText.getWindowToken(), 0);
+                    if (Utilities.isOnline(v.getContext())) {
+                        performSearch();
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(mRadiusText.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(v.getContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             mMakeSelection = (Button) rootView.findViewById(R.id.button_select_items);

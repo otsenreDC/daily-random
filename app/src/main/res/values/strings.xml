@@ -25,4 +25,6 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
 
+    <string name="no_network">No network connection available.</string>
+
 </resources>

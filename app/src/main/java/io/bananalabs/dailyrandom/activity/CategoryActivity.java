@@ -77,10 +77,10 @@ public class CategoryActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             mCategoryAdapter = new SimpleCursorAdapter(
                     getActivity(),
-                    android.R.layout.simple_expandable_list_item_1,
+                    R.layout.list_item_category,
                     null,
                     new String[]{DailyRandomContract.CategoryEntry.COLUMN_TITLE},
-                    new int[]{android.R.id.text1},
+                    new int[]{R.id.text_category},
                     0
             );
 

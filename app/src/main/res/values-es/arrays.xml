@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="places">
+        <item>Parque de diversiones</item>
+        <item>Galería de arte</item>
+        <item>Repostería</item>
+        <item>Bar</item>
+        <item>Salón de belleza</item>
+        <item>Libería</item>
+        <item>Café</item>
+        <item>Car wash</item>
+        <item>Casino</item>
+        <item>Iglesia</item>
+        <item>Vestimenta</item>
+        <item>Tienda de conveniencia</item>
+        <item>Tienda departamental</item>
+        <item>Tienda de electrónicos</item>
+        <item>Floristería</item>
+        <item>Comida</item>
+        <item>Tienda de muebles</item>
+        <item>Cuidado del pelo</item>
+        <item>Tienda del hogar</item>
+        <item>Joyería</item>
+        <item>Lavandería</item>
+        <item>Abogado</item>
+        <item>Biblioteca</item>
+        <item>Tienda de licores</item>
+        <item>Comida a domicilio</item>
+        <item>Comida para llevar</item>
+        <item>Renta de películas</item>
+        <item>Sala de cines</item>
+        <item>Museo</item>
+        <item>Club nocturno</item>
+        <item>Parque</item>
+        <item>Estacionamiento</item>
+        <item>Tienda de animales</item>
+        <item>Farmacia</item>
+        <item>Restaurante</item>
+        <item>Parque de remolques</item>
+        <item>Escuela</item>
+        <item>Tienda de zapatos</item>
+        <item>Centro comercial</item>
+        <item>Spa</item>
+        <item>Estadio</item>
+        <item>Tienda</item>
+    </string-array>
+</resources>
