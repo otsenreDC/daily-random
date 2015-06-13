@@ -24,50 +24,5 @@
     <string name="delete_message">Delete selection?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-    
-    <string-array name="place_types">
-        <item>amusement_park</item>
-        <item>art_gallery</item>
-        <item>bakery</item>
-        <item>bar</item>
-        <item>beauty_salon</item>
-        <item>book store</item>
-        <item>cafe</item>
-        <item>car_wash</item>
-        <item>casino</item>
-        <item>church</item>
-        <item>clothing_store</item>
-        <item>convenience_store</item>
-        <item>department_store</item>
-        <item>electronics_store</item>
-        <item>florist</item>
-        <item>food</item>
-        <item>furniture_store</item>
-        <item>hair_care</item>
-        <item>home_goods_store</item>
-        <item>jewelry_store</item>
-        <item>laundry</item>
-        <item>lawyer</item>
-        <item>library</item>
-        <item>liquor_store</item>
-        <item>meal_delivery</item>
-        <item>meal_takeaway</item>
-        <item>movie_rental</item>
-        <item>movie_theater</item>
-        <item>museum</item>
-        <item>night_club</item>
-        <item>park</item>
-        <item>parking</item>
-        <item>pet_store</item>
-        <item>pharmacy</item>
-        <item>restaurant</item>
-        <item>rv_park</item>
-        <item>school</item>
-        <item>shoe_store</item>
-        <item>shopping_mall</item>
-        <item>spa</item>
-        <item>stadium</item>
-        <item>store</item>
-    </string-array>
 
 </resources>

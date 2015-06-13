@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="place_types"
+        translatable="false">
+        <item>amusement_park</item>
+        <item>art_gallery</item>
+        <item>bakery</item>
+        <item>bar</item>
+        <item>beauty_salon</item>
+        <item>book store</item>
+        <item>cafe</item>
+        <item>car_wash</item>
+        <item>casino</item>
+        <item>church</item>
+        <item>clothing_store</item>
+        <item>convenience_store</item>
+        <item>department_store</item>
+        <item>electronics_store</item>
+        <item>florist</item>
+        <item>food</item>
+        <item>furniture_store</item>
+        <item>hair_care</item>
+        <item>home_goods_store</item>
+        <item>jewelry_store</item>
+        <item>laundry</item>
+        <item>lawyer</item>
+        <item>library</item>
+        <item>liquor_store</item>
+        <item>meal_delivery</item>
+        <item>meal_takeaway</item>
+        <item>movie_rental</item>
+        <item>movie_theater</item>
+        <item>museum</item>
+        <item>night_club</item>
+        <item>park</item>
+        <item>parking</item>
+        <item>pet_store</item>
+        <item>pharmacy</item>
+        <item>restaurant</item>
+        <item>rv_park</item>
+        <item>school</item>
+        <item>shoe_store</item>
+        <item>shopping_mall</item>
+        <item>spa</item>
+        <item>stadium</item>
+        <item>store</item>
+    </string-array>
+
+    <string-array name="places">
+        <item>Amusement park</item>
+        <item>Art gallery</item>
+        <item>Bakery</item>
+        <item>Bar</item>
+        <item>Beauty salon</item>
+        <item>Book store</item>
+        <item>Cafe</item>
+        <item>Car wash</item>
+        <item>Casino</item>
+        <item>Church</item>
+        <item>Clothing store</item>
+        <item>Convenience store</item>
+        <item>Department store</item>
+        <item>Electronics store</item>
+        <item>Florist</item>
+        <item>Food</item>
+        <item>Furniture_store</item>
+        <item>Hair care</item>
+        <item>Home goods_store</item>
+        <item>Jewelry store</item>
+        <item>Laundry</item>
+        <item>Lawyer</item>
+        <item>Library</item>
+        <item>Liquor_store</item>
+        <item>Meal delivery</item>
+        <item>Meal takeaway</item>
+        <item>Movie rental</item>
+        <item>Movie theater</item>
+        <item>Museum</item>
+        <item>Night club</item>
+        <item>Park</item>
+        <item>Parking</item>
+        <item>Pet store</item>
+        <item>Pharmacy</item>
+        <item>Restaurant</item>
+        <item>Rv park</item>
+        <item>School</item>
+        <item>Shoe store</item>
+        <item>Shopping_mall</item>
+        <item>Spa</item>
+        <item>Stadium</item>
+        <item>Store</item>
+    </string-array>
+
+</resources>

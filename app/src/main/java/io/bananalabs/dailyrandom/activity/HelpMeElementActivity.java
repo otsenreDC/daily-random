@@ -214,12 +214,13 @@ public class HelpMeElementActivity extends ActionBarActivity {
 
         private void performSearch() {
             long radius;
-            String placeType = getPlaceTypeFromInput();
+            String[] placesTypes = getActivity().getResources().getStringArray(R.array.place_types);
+            int selectedPosition = mPlaceTypeSpinner.getSelectedItemPosition();
             if ((radius = getRadiusFromInput()) == -1) {
                 return;
             }
             mPlaces.clear();
-            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), mLocation.getLongitude(), radius, placeType);
+            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), mLocation.getLongitude(), radius, placesTypes[selectedPosition]);
         }
 
         private void makeSelection() {

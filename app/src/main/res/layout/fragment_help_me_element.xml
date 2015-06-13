@@ -34,7 +34,7 @@
             android:id="@+id/spinner_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/place_types"
+            android:entries="@array/places"
             android:minHeight="?android:attr/listPreferredItemHeight" />
 
         <LinearLayout

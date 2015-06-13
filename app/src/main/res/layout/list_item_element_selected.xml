@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorSecondary"
     android:layout_height="wrap_content"
+    android:background="@color/colorSecondary"
     android:descendantFocusability="blocksDescendants"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
     android:padding="?android:attr/listPreferredItemPaddingRight">
 
-    <TextView
-        android:id="@+id/text_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:text="Burger King"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+            <TextView
                 android:id="@+id/text_date"
-                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-2-2015"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/text_counter"
-                android:textColor="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
@@ -54,12 +48,12 @@
 
 
             <CheckBox
-                android:visibility="gone"
                 android:id="@+id/checkbox_exclude"
                 android:layout_width="wrap_content"
-                android:textColor="@android:color/white"
                 android:layout_height="wrap_content"
-                android:text="@string/exclude" />
+                android:text="@string/exclude"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/button_take_me_there"
@@ -72,4 +66,16 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Burger King"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white"
+        android:textSize="33sp" />
+
 </LinearLayout>

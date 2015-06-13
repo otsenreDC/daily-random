@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -131,6 +130,7 @@ public class ElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), NewElementActivity.class);
+                    intent.putExtra(Intent.EXTRA_KEY_EVENT, categoryId);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -143,8 +143,7 @@ public class ElementActivity extends ActionBarActivity {
                     Cursor cursor = mElementAdapter.getCursor();
                     cursor.moveToPosition(position);
                     Element element = new Element(cursor);
-                    Toast.makeText(getActivity(), "Incremented to: " + element.updateAsSeleted(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), "DATE : " + Utilities.formatDate(element.getDate()), Toast.LENGTH_SHORT).show();
+                    element.updateAsSeleted();
                     element.update(getActivity());
                     mListView.setItemChecked(position, true);
                 }
