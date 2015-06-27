@@ -25,10 +25,10 @@
                 android:id="@+id/text_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
                 android:text="2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/text_date"
@@ -57,11 +57,12 @@
 
             <ImageButton
                 android:id="@+id/button_take_me_there"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="@dimen/space_between_element"
                 android:layout_marginStart="@dimen/space_between_element"
-                android:src="@drawable/ic_navigate"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_navigate_white"
                 android:text="@string/get_met_there"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
@@ -71,9 +72,9 @@
         android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Burger King"
         android:ellipsize="end"
         android:maxLines="1"
+        android:text="Burger King"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
         android:textSize="33sp" />

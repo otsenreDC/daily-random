@@ -2,7 +2,16 @@
 <resources>
     <color name="colorPrimary">#FF6C12</color>
     <color name="colorSecondary">#d35400</color>
-    <color name="blue_search">#439fde</color>
+
     <color name="orange_select">#f39c12</color>
     <color name="green_create">#1abc9c</color>
+    <color name="blue_search">#439fde</color>
+
+    <color name="orange_select_dark">#d37c00</color>
+    <color name="green_create_dark">#009c7c</color>
+    <color name="blue_search_dark">#136fae</color>
+
+    <color name="blue_labels">#3498db</color>
+    <color name="text_color">#404040</color>
+
 </resources>

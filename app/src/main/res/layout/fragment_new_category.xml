@@ -13,6 +13,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/blue_labels"
         android:text="Category's name" />
 
     <EditText
@@ -22,16 +23,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"
+        android:background="@android:color/white" />
 
     <Button
         android:id="@+id/button_category_save"
         android:layout_width="wrap_content"
-        android:layout_gravity="end"
         android:layout_height="wrap_content"
-        android:text="@string/done"
+        android:layout_gravity="end"
         android:background="@drawable/touch_selector"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:text="@string/done" />
 
 </LinearLayout>

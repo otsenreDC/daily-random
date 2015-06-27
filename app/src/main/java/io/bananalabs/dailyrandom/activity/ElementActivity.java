@@ -13,10 +13,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
 import io.bananalabs.dailyrandom.model.Place;
 import io.bananalabs.dailyrandom.others.ElementCursorAdapter;
+import io.bananalabs.dailyrandom.view.DailyListView;
 
 
 public class ElementActivity extends ActionBarActivity {
@@ -63,12 +66,15 @@ public class ElementActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class ElementFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ElementCursorAdapter.OnMapButtonClickListener {
+    public static class ElementFragment extends Fragment implements
+            LoaderManager.LoaderCallbacks<Cursor>, ElementCursorAdapter.OnMapButtonClickListener{
 
         private static final int ELEMENT_LOADER = 1;
 
+        private FloatingActionsMenu mFloatingActionMenu;
+        private LinearLayout mCoverLayout;
         private ElementCursorAdapter mElementAdapter;
-        private ListView mListView;
+        private DailyListView mListView;
         private long categoryId = -1;
 
         public ElementFragment() {
@@ -106,6 +112,7 @@ public class ElementActivity extends ActionBarActivity {
             getLoaderManager().initLoader(ELEMENT_LOADER, null, this);
         }
 
+        private int mLastVisibleItem = 0;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -114,7 +121,7 @@ public class ElementActivity extends ActionBarActivity {
             mElementAdapter.setMapButtonClickListener(this);
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
-            mListView = (ListView) rootView.findViewById(R.id.list_elements);
+            mListView = (DailyListView) rootView.findViewById(R.id.list_elements);
             mListView.setAdapter(mElementAdapter);
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -122,6 +129,35 @@ public class ElementActivity extends ActionBarActivity {
                     Element element = Element.readElement(getActivity(), id);
                     Utilities.showDeleteDialog(getActivity(), positiveAnswerForDeletion(element), null);
                     return true;
+                }
+            });
+            mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    if (firstVisibleItem > mLastVisibleItem) {
+
+                    } else {
+
+                    }
+                    mLastVisibleItem = firstVisibleItem;
+                }
+            });
+
+            mFloatingActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
+            mFloatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+                @Override
+                public void onMenuExpanded() {
+                    setCoverVisivity(true);
+                }
+
+                @Override
+                public void onMenuCollapsed() {
+                    setCoverVisivity(false);
                 }
             });
 
@@ -132,6 +168,7 @@ public class ElementActivity extends ActionBarActivity {
                     Intent intent = new Intent(v.getContext(), NewElementActivity.class);
                     intent.putExtra(Intent.EXTRA_KEY_EVENT, categoryId);
                     v.getContext().startActivity(intent);
+                    toogleFam();
                 }
             });
 
@@ -146,6 +183,7 @@ public class ElementActivity extends ActionBarActivity {
                     element.updateAsSeleted();
                     element.update(getActivity());
                     mListView.setItemChecked(position, true);
+                    toogleFam();
                 }
             });
 
@@ -154,6 +192,15 @@ public class ElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     getActivity().startActivityForResult(new Intent(getActivity(), HelpMeElementActivity.class), REQUEST_PLACES);
+                    toogleFam();
+                }
+            });
+
+            mCoverLayout = (LinearLayout) rootView.findViewById(R.id.layout_cover);
+            mCoverLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    toogleFam();
                 }
             });
 
@@ -209,6 +256,19 @@ public class ElementActivity extends ActionBarActivity {
                 positions[idx] = idx;
             }
             return positions;
+        }
+
+        private void toogleFam() {
+            if (mFloatingActionMenu != null) {
+                mFloatingActionMenu.toggle();
+            }
+        }
+
+        private void setCoverVisivity(boolean isVisible) {
+            if (isVisible)
+                mCoverLayout.setVisibility(View.VISIBLE);
+            else
+                mCoverLayout.setVisibility(View.GONE);
         }
     }
 }

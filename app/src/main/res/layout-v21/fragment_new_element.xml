@@ -11,8 +11,8 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:textColor="@color/blue_labels"
         android:layout_height="wrap_content"
+        android:textColor="@color/blue_labels"
         android:text="@string/element_name" />
 
     <EditText
@@ -22,12 +22,13 @@
 
     <Button
         android:id="@+id/button_element_save"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:background="@drawable/touch_selector"
+        android:elevation="0dp"
         android:text="@string/done"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/colorSecondary" />
 
 </LinearLayout>
 

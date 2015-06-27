@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     tools:context="io.bananalabs.dailyrandom.activity.ElementActivity.ElementFragment">
 
-    <ListView
+    <io.bananalabs.dailyrandom.view.DailyListView
         android:id="@+id/list_elements"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/layout_cover"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ccdddddd"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
@@ -26,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/orange_select"
-            fab:fab_colorPressed="#dddddd"
+            fab:fab_colorPressed="@color/orange_select_dark"
             fab:fab_icon="@drawable/action_random"
             fab:fab_size="mini" />
 
@@ -35,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/blue_search"
-            fab:fab_colorPressed="#dddddd"
+            fab:fab_colorPressed="@color/blue_search_dark"
             fab:fab_icon="@drawable/action_search"
             fab:fab_size="mini" />
 
@@ -44,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/green_create"
-            fab:fab_colorPressed="#dddddd"
+            fab:fab_colorPressed="@color/green_create_dark"
             fab:fab_icon="@drawable/action_new_element"
             fab:fab_size="mini" />
 

@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Burger King"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
             android:orientation="vertical">
@@ -34,14 +35,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10-2-2015"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/text_color" />
 
             <TextView
                 android:id="@+id/text_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/text_color" />
 
         </LinearLayout>
 
@@ -52,19 +55,20 @@
             android:orientation="vertical">
 
             <CheckBox
-                android:visibility="gone"
                 android:id="@+id/checkbox_exclude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/exclude" />
+                android:text="@string/exclude"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/button_take_me_there"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_between_element"
                 android:layout_marginStart="@dimen/space_between_element"
-                android:src="@drawable/ic_navigate"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_navigate"
                 android:text="@string/get_met_there"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
