@@ -1,5 +1,7 @@
 package io.bananalabs.dailyrandom.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -265,10 +267,31 @@ public class ElementActivity extends ActionBarActivity {
         }
 
         private void setCoverVisivity(boolean isVisible) {
-            if (isVisible)
+            if (isVisible) {
+                mCoverLayout.setAlpha(0f);
                 mCoverLayout.setVisibility(View.VISIBLE);
-            else
-                mCoverLayout.setVisibility(View.GONE);
+                mCoverLayout.animate()
+                        .alpha(1f)
+                        .setDuration(200)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                });
+            } else {
+                mCoverLayout.setAlpha(1f);
+                mCoverLayout.animate()
+                        .alpha(0f)
+                        .setDuration(100)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                mCoverLayout.setVisibility(View.GONE);
+                                super.onAnimationEnd(animation);
+                            }
+                        });
+            }
         }
     }
 }
