@@ -1,5 +1,6 @@
 package io.bananalabs.dailyrandom.activity;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -7,7 +8,6 @@ import android.content.IntentSender;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -43,7 +43,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_me_element);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
+            getFragmentManager().beginTransaction()
                     .add(R.id.container, new HelpMeElementFragment())
                     .commit();
         }
@@ -159,6 +159,15 @@ public class HelpMeElementActivity extends ActionBarActivity {
         }
 
         @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            if (savedInstanceState != null) {
+                mPlaces = savedInstanceState.getParcelableArrayList(PLACES);
+                mPlacesAdater.notifyDataSetChanged();
+            }
+        }
+
+        @Override
         public void onPlacesDataReceived(String json) {
             new AsyncTask<String, Void, ArrayList<Place>>() {
                 @Override
@@ -200,6 +209,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 this.mResolvingError = false;
             }
         }
+
 
         // Private methods
         private long getRadiusFromInput() {
@@ -246,5 +256,8 @@ public class HelpMeElementActivity extends ActionBarActivity {
             getActivity().finish();
         }
 
+        public Bundle getInstanceState() {
+            return null;
+        }
     }
 }

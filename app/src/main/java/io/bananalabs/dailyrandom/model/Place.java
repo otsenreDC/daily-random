@@ -116,4 +116,15 @@ public class Place implements Parcelable{
         this.name = bundle.getString(KEY_NAME, "");;
         this.geometry = new Geometry(lat, lng);
     }
+
+    public static ArrayList<Place> placesFromParcelableArray(ArrayList<Parcelable> places) {
+        if (places != null) {
+            ArrayList<Place> placeArrayList = new ArrayList<>();
+            for (Parcelable parcelable : places) {
+
+            }
+            return placeArrayList;
+        }
+        return null;
+    }
 }

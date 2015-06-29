@@ -10,9 +10,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -52,24 +49,6 @@ public class CategoryActivity extends ActionBarActivity {
         private SimpleCursorAdapter mCategoryAdapter;
 
         public ActivityFragment() {
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_new_category) {
-                getActivity().startActivity(new Intent(getActivity(), NewCategoryActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
-
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            inflater.inflate(R.menu.menu_activity, menu);
-            super.onCreateOptionsMenu(menu, inflater);
         }
 
         @Override
@@ -126,14 +105,6 @@ public class CategoryActivity extends ActionBarActivity {
             });
 
             return rootView;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            // Setting Option Menu
-            setHasOptionsMenu(true);
         }
 
         @Override
