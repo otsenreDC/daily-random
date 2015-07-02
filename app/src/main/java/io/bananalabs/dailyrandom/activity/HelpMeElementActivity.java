@@ -162,7 +162,8 @@ public class HelpMeElementActivity extends ActionBarActivity {
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
             if (savedInstanceState != null) {
-                mPlaces = savedInstanceState.getParcelableArrayList(PLACES);
+                ArrayList<Place> places = savedInstanceState.getParcelableArrayList(PLACES);
+                mPlaces.addAll(places);
                 mPlacesAdater.notifyDataSetChanged();
             }
         }
