@@ -1,22 +1,22 @@
 package io.bananalabs.dailyrandom.activity;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -66,6 +66,8 @@ public class HelpMeElementActivity extends ActionBarActivity {
         private Button mSearchButton;
         private Button mMakeSelection;
         private Spinner mPlaceTypeSpinner;
+        private DrawerLayout mDrawerLayout;
+        private LinearLayout mConfigLayout;
 
         private PlacesBroadcast mPlacesBroadcast;
 
@@ -112,6 +114,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
             super.onSaveInstanceState(outState);
         }
 
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -125,10 +128,10 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     if (Utilities.isOnline(v.getContext())) {
+                        if (mDrawerLayout.isDrawerOpen(mConfigLayout))
+                            mDrawerLayout.closeDrawer(mConfigLayout);
                         performSearch();
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                                Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(mRadiusText.getWindowToken(), 0);
+                        Utilities.hideSoftKeyboard(getActivity(), mRadiusText);
                     } else {
                         Toast.makeText(v.getContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
                     }
@@ -154,6 +157,11 @@ public class HelpMeElementActivity extends ActionBarActivity {
                     .addApi(LocationServices.API)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this).build();
+
+            mDrawerLayout = (DrawerLayout)rootView.findViewById(R.id.drawer_layout);
+            mConfigLayout = (LinearLayout) mDrawerLayout.findViewById(R.id.layout_config);
+            mDrawerLayout.openDrawer(mConfigLayout);
+
 
             return rootView;
         }
@@ -237,7 +245,11 @@ public class HelpMeElementActivity extends ActionBarActivity {
                 return;
             }
             mPlaces.clear();
-            PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), mLocation.getLongitude(), radius, placesTypes[selectedPosition]);
+            if  (mLocation != null) {
+                PLacesService.startAactionAskPlaces(getActivity(), mLocation.getLatitude(), mLocation.getLongitude(), radius, placesTypes[selectedPosition]);
+            } else {
+                PLacesService.startAactionAskPlaces(getActivity(), 19.224997, -70.532191, radius, placesTypes[selectedPosition]);
+            }
         }
 
         private void makeSelection() {
