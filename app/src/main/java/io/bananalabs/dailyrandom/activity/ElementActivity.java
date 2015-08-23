@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -30,7 +31,6 @@ import io.bananalabs.dailyrandom.data.DailyRandomContract;
 import io.bananalabs.dailyrandom.model.Element;
 import io.bananalabs.dailyrandom.model.Place;
 import io.bananalabs.dailyrandom.others.ElementCursorAdapter;
-import io.bananalabs.dailyrandom.view.DailyListView;
 
 
 public class ElementActivity extends ActionBarActivity {
@@ -52,7 +52,6 @@ public class ElementActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK)
             if (REQUEST_PLACES == requestCode) {
                 if (data != null) {
@@ -76,7 +75,8 @@ public class ElementActivity extends ActionBarActivity {
         private FloatingActionsMenu mFloatingActionMenu;
         private LinearLayout mCoverLayout;
         private ElementCursorAdapter mElementAdapter;
-        private DailyListView mListView;
+        private ListView mListView;
+        private float mFloatingActionMenuPositionY;
         private long categoryId = -1;
 
         public ElementFragment() {
@@ -115,6 +115,7 @@ public class ElementActivity extends ActionBarActivity {
         }
 
         private int mLastVisibleItem = 0;
+        private boolean mScrollDirection = false; // false for up ;  true for down
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class ElementActivity extends ActionBarActivity {
             mElementAdapter.setMapButtonClickListener(this);
 
             View rootView = inflater.inflate(R.layout.fragment_element, container, false);
-            mListView = (DailyListView) rootView.findViewById(R.id.list_elements);
+            mListView = (ListView) rootView.findViewById(R.id.list_elements);
             mListView.setAdapter(mElementAdapter);
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -133,6 +134,7 @@ public class ElementActivity extends ActionBarActivity {
                     return true;
                 }
             });
+
             mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -141,16 +143,20 @@ public class ElementActivity extends ActionBarActivity {
 
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    if (firstVisibleItem > mLastVisibleItem) {
-
-                    } else {
-
+                    if (firstVisibleItem != mLastVisibleItem) {
+                        boolean newDirection = firstVisibleItem > mLastVisibleItem;
+                        if (newDirection != mScrollDirection) {
+                            mLastVisibleItem = firstVisibleItem;
+                            mScrollDirection = newDirection;
+                            animateFam(newDirection);
+                        }
                     }
                     mLastVisibleItem = firstVisibleItem;
                 }
             });
 
             mFloatingActionMenu = (FloatingActionsMenu) rootView.findViewById(R.id.multiple_actions);
+            mFloatingActionMenuPositionY = mFloatingActionMenu.getY();
             mFloatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
                 @Override
                 public void onMenuExpanded() {
@@ -264,6 +270,22 @@ public class ElementActivity extends ActionBarActivity {
             if (mFloatingActionMenu != null) {
                 mFloatingActionMenu.toggle();
             }
+        }
+
+        private void animateFam(boolean hide) {
+            if (hide) {
+                hideFam();
+            } else {
+                unhideFam();
+            }
+        }
+
+        private void hideFam() {
+            mFloatingActionMenu.animate().translationY(250);
+        }
+
+        private void unhideFam() {
+            mFloatingActionMenu.animate().translationY(0);
         }
 
         private void setCoverVisivity(boolean isVisible) {

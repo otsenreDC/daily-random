@@ -13,7 +13,7 @@ import android.net.Uri;
 /**
  * Created by EDC on 3/19/15.
  */
-public class DailyRandomProvider extends ContentProvider {
+public class  DailyRandomProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private DailyRandomDbHelper mOpenHelper;
@@ -36,6 +36,7 @@ public class DailyRandomProvider extends ContentProvider {
                         "." + DailyRandomContract.ElementEntry.COLUMN_CAT_KEY +
                         " = " + DailyRandomContract.CategoryEntry.TABLE_NAME +
                         "." + DailyRandomContract.CategoryEntry._ID);
+
     }
 
     private static final String sCategorySelection =

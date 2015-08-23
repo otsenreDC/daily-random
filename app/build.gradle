@@ -25,5 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services:7.3.0'
 
-    compile 'com.getbase:floatingactionbutton:1.9.1'
+    compile 'com.getbase:floatingactionbutton:1.10.0'
 }

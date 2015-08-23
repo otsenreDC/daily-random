@@ -110,7 +110,8 @@ public class TestADB extends AndroidTestCase {
     static ContentValues createElementValues(long categoryId) {
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(ElementEntry.COLUMN_TITLE, "Pizza");
+        contentValues.put(ElementEntry.COLUMN_TITLE, "" +
+                "Pizza");
         contentValues.put(ElementEntry.COLUMN_COUNTER, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LAT, 0);
         contentValues.put(ElementEntry.COLUMN_COORD_LONG, 0);

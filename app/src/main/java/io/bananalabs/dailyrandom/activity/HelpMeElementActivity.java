@@ -53,7 +53,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class HelpMeElementFragment extends Fragment implements PlacesBroadcast.PlacesBroadcastListener, GoogleApiClient.ConnectionCallbacks,
-            GoogleApiClient.OnConnectionFailedListener {
+            GoogleApiClient.OnConnectionFailedListener, DrawerLayout.DrawerListener {
 
         private final String LOG_TAG = HelpMeElementActivity.class.getSimpleName();
 
@@ -131,7 +131,6 @@ public class HelpMeElementActivity extends ActionBarActivity {
                         if (mDrawerLayout.isDrawerOpen(mConfigLayout))
                             mDrawerLayout.closeDrawer(mConfigLayout);
                         performSearch();
-                        Utilities.hideSoftKeyboard(getActivity(), mRadiusText);
                     } else {
                         Toast.makeText(v.getContext(), R.string.no_network, Toast.LENGTH_SHORT).show();
                     }
@@ -147,11 +146,12 @@ public class HelpMeElementActivity extends ActionBarActivity {
 
             mPlacesBroadcast = new PlacesBroadcast(this);
 
+
             mPlacesAdater = new PlacesAdapter(getActivity(), mPlaces);
             ListView listView = (ListView) rootView.findViewById(R.id.list_results);
+            TextView emptyView = (TextView) rootView.findViewById(android.R.id.empty);
+            listView.setEmptyView(emptyView);
             listView.setAdapter(mPlacesAdater);
-            TextView emptyText = (TextView) rootView.findViewById(android.R.id.empty);
-            listView.setEmptyView(emptyText);
 
             this.mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                     .addApi(LocationServices.API)
@@ -161,6 +161,7 @@ public class HelpMeElementActivity extends ActionBarActivity {
             mDrawerLayout = (DrawerLayout)rootView.findViewById(R.id.drawer_layout);
             mConfigLayout = (LinearLayout) mDrawerLayout.findViewById(R.id.layout_config);
             mDrawerLayout.openDrawer(mConfigLayout);
+            mDrawerLayout.setDrawerListener(this);
 
 
             return rootView;
@@ -219,6 +220,24 @@ public class HelpMeElementActivity extends ActionBarActivity {
             }
         }
 
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            Utilities.showSoftKeyboard(getActivity(), mRadiusText);
+        }
+
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            Utilities.hideSoftKeyboard(getActivity(), mRadiusText);
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
 
         // Private methods
         private long getRadiusFromInput() {
@@ -267,10 +286,6 @@ public class HelpMeElementActivity extends ActionBarActivity {
             intent.putExtra(Intent.EXTRA_TEXT, new Gson().toJson(placesSelected));
             getActivity().setResult(RESULT_OK, intent);
             getActivity().finish();
-        }
-
-        public Bundle getInstanceState() {
-            return null;
         }
     }
 }

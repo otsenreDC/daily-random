@@ -74,4 +74,10 @@ public class Utilities {
         imm.hideSoftInputFromWindow(keyboardHolder.getWindowToken(), 0);
     }
 
+    public static void showSoftKeyboard(Context context, View keyboardHolder) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInputFromWindow(keyboardHolder.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+    }
+
 }

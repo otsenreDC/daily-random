@@ -18,38 +18,6 @@ public class TestBProvider extends AndroidTestCase {
     public static String LOG_TAG = TestBProvider.class.getSimpleName();
 
     public void deleteAllRecords() {
-        mContext.getContentResolver().delete(
-                DailyRandomContract.CategoryEntry.CONTENT_URI,
-                null,
-                null
-        );
-
-        mContext.getContentResolver().delete(
-                DailyRandomContract.ElementEntry.CONTENT_URI,
-                null,
-                null
-        );
-
-        Cursor cursor = mContext.getContentResolver().query(
-                DailyRandomContract.CategoryEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-        );
-            assertEquals(0, cursor.getCount());
-        cursor.close();
-
-
-        cursor = mContext.getContentResolver().query(
-                DailyRandomContract.ElementEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-        );
-        assertEquals(0, cursor.getCount());
-        cursor.close();
     }
 
     public void setUp() {
